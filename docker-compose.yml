@@ -1,0 +1,10 @@
+version: '3.6'
+
+services:
+
+  tamada-frontend:
+    build: .
+    container_name: tamada-frontend
+    restart: always
+    ports:
+      - 50041:4200
