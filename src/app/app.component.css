@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Raleway');
+
+body {
+  background-color: #f2f2f2;
+  font-family: "Lato";
+  font-weight: 300;
+  font-size: 16px;
+  color: #555;
+
+  -webkit-font-smoothing: antialiased; /* Сглаженный шрифт */
+  -webkit-overflow-scrolling: touch;
+
+  margin-top: 70px; /* устанавливает внешний отступ сверху элемента */
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Raleway";
+  font-weight: 300;
+  color: #333;
+}
+
+p {
+  font-family: "Raleway";
+  line-height: 28px; /* Межстрочный интервал */
+  margin-bottom: 25px; /* устанавливает внешний отступ внизу элемента */
+}
+
+.centered {
+  text-align: center;
+}
+
+a {
+  color: #f85c37;
+}
+
+a:hover, a:focus {
+  color: #7b7b7b;
+  text-decoration: none; /* Подчеркивание, зачеркивание и т.д. */
+  outline: 0; /* рамочки у ссылки */
+}
+
+hr {
+  display: block; /* Отображение в виде блока */
+  height: 1px;
+  border: 0px;
+  border-top: 1px solid #ccc; /* Рамка над элементом */
+  margin: 1em 0; /* Сверху - текущая величина (1*n). Справа - 0.  */
+  padding: 0;  /* Отступ внутри элемента от границ */
+}
+
+.navbar {
+  font-family: "Raleway";
+  font-weight: 800;
+  font-size: 14px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.navbar-inverse {
+  background: #2d2d2d;
+  border-color: #2d2d2d;
+}
+
+.navbar-inverse .navbar-nav>.active>a {
+  background: #ff7878
+}
+
+.navbar-inverse .navbar-brand {
+  color: #999999;
+  font-weight: bolder;
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+.navbar-inverse .navbar-brand i {
+  color: #ff7878;
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+#header-wrap {
+  /*background: url(../img/header-bg.jpg) no-repeat center top;*/
+  background: url(https://images.unsplash.com/photo-1586972246803-d2bdc4006378?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80) no-repeat center top;
+  filter: brightness(85%);
+  margin-top: -10px;
+  padding-top: 20px;
+  text-align: center;
+  /*background-attachment: relative;*/
+  background-position: center center;
+  min-height: 500px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#header-wrap h1 {
+  margin-top: 100px;
+  color: white;
+  font-size: 70px;
+  font-weight: 300;
+  letter-spacing: 3px;
+}
+
+#header-wrap h2 {
+  color: white;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.w {
+  padding-top: 35px;
+}
+
+.w h4 {
+  font-weight: 700;
+}
+
+.w i {
+  color: #ff7878;
+  font-size: 30px;
+}
+
+#dg {
+  background: #e0e0e0;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  text-align: center;
+}
+
+#dg h4 {
+  font-weight: 700;
+}
+
+.tilt {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.tilt:hover {
+  -webkit-transform: rotate(-10deg);
+  -moz-transform: rotate(-10deg);
+  -o-transform: rotate(-10deg);
+  -ms-transform: rotate(-10deg);
+  transform: rotate(-10deg);
+}
+
+.wb {
+  padding-top: 35px;
+  margin-bottom: 0px;
+}
+
+.wb h4 {
+  font-weight: 700;
+}
+
+#lg {
+  background: #ebebeb;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  text-align: center;
+}
+
+#lg h4 {
+  font-weight: 700;
+}
+
+#r {
+  background: #ff7878;
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+
+#r h4 {
+  color: white;
+  font-weight: 700;
+}
+
+#r p {
+  color: white;
+}
+
+#copyrights {
+  background: #222222;
+  padding: 20px 0;
+  text-align: center;
+  color: #fff;
+}
+
+#copyrights p {
+  margin-bottom: 5px;
+}
+
+.credits {
+  color: #999;
+}
+
+#f {
+  background: #2d2d2d;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+#f i {
+  color: #bdbdbd;
+  font-size: 30px;
+  padding: 20px;
+}
+
+#f i:hover {
+  color: #ff7878;
+}
+
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale
+}
+
+.fa-envelope:before {
+  content: "\f0e0"
+}
+
+.fa-star:before {
+  content: "\f005"
+}
