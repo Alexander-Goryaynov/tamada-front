@@ -19,24 +19,16 @@
 <!-- navbar - это хедер; inverse - цвет, fixed-top - фиксированное положение -->
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
-    <div class="navbar-header"> <!-- collapse - раскрытие при нажатии, data-target - что будет открываться. -->
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <!-- navbar-toggler - меню сворачивается в виде иконки, когда не хватает места -->
-        <span class="icon-bar"></span> <!-- span - мини контейнер для текста; icon-bar - панель для кнопок -->
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+    <div class="navbar-header">
       <a class="navbar-brand" href="#">ST<i class="fa fa-star"></i>R</a>
     </div>
-    <div class="navbar-collapse collapse" id="collapsibleNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#">Домой</a></li>
-        <li><a href="about.html">О нас</a></li>
-        <li><a href="#">Сервисы</a></li>
-        <li><a href="#">Наши мероприятия</a></li>
-        <li><a href="#"><i class="fa fa-envelope"></i></a></li>
-      </ul>
-    </div>
+    <ul class="nav navbar-nav navbar-right d-sm-flex">
+      <li class="active"><a href="#">Домой</a></li>
+      <li><a href="about.html">О нас</a></li>
+      <li><a href="#">Сервисы</a></li>
+      <li><a href="#">Наши мероприятия</a></li>
+      <li><a href="#"><i class="fa fa-envelope"></i></a></li>
+    </ul>
   </div>
 </div>
 <router-outlet></router-outlet>

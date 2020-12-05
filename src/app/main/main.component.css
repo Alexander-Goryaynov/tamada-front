@@ -13,6 +13,12 @@ body {
   margin-top: 70px; /* устанавливает внешний отступ сверху элемента */
 }
 
+@media (max-width: 760px) {
+  #header-wrap {
+    margin-top: 200px !important;
+  }
+}
+
 h1,h2,h3,h4,h5,h6 {
   font-family: "Raleway";
   font-weight: 300;
