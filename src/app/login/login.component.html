@@ -1,0 +1,50 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Войти в аккаунт</title>
+  <!-- Font Icon -->
+  <!--<link rel="stylesheet" href="../../assets/fonts/material-icon/css/material-design-iconic-font.css">-->
+
+  <!-- Main css -->
+<!--  <link rel="stylesheet" href="../../assets/css/authstyle.css">-->
+</head>
+<body>
+
+<div class="main">
+
+  <section class="signup">
+    <div class="container">
+      <div class="signup-content">
+        <form method="POST" id="signup-form" class="signup-form">
+          <h2 class="form-title">Войти в аккаунт</h2>
+          <div class="form-group">
+            <input type="text" class="form-input" name="phone-number" pattern="[7-9]{1}[0-9]{10}"  placeholder="7XXXXXXXXXX">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input" name="password" id="password" placeholder="Пароль"/>
+            <!--<span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>-->
+            <div class="input-group" id="show_hide_password">
+              <input class="form-control" [type]="type" id="myInput">
+              <input type="checkbox" (click)="myFunction()">Show Password
+            </div>
+
+          </div>
+          <div class="form-group">
+            <input type="submit" name="submit" id="submit" class="form-submit" value="Авторизация"/>
+          </div>
+        </form>
+        <p class="loginhere">
+          Хотите зарегистрироваться? <a href="#" class="loginhere-link">Продолжите здесь</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- JS -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../../assets/js/authmain.js"></script>
+</body>

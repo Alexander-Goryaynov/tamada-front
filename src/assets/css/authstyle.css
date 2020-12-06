@@ -90,20 +90,6 @@ input:focus, select:focus, textarea:focus {
   -o-box-shadow: none !important;
   -ms-box-shadow: none !important; }
 
-input[type=checkbox] {
-  appearance: checkbox !important;
-  -moz-appearance: checkbox !important;
-  -webkit-appearance: checkbox !important;
-  -o-appearance: checkbox !important;
-  -ms-appearance: checkbox !important; }
-
-input[type=radio] {
-  appearance: radio !important;
-  -moz-appearance: radio !important;
-  -webkit-appearance: radio !important;
-  -o-appearance: radio !important;
-  -ms-appearance: radio !important; }
-
 img {
   max-width: 100%;
   height: auto; }
@@ -135,7 +121,7 @@ body {
   font-size: 14px;
   line-height: 1.8;
   color: #222;
-  font-weight: 400;  
+  font-weight: 400;
   font-family: 'Montserrat';
   background-image: url("../images/background_light.jpg");
   background-repeat: no-repeat;
