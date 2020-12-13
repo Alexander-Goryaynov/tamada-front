@@ -7,10 +7,10 @@ import {Injectable} from '@angular/core';
 export class AboutService {
   getEventsStats(): ChartData[] {
     const result = [
-      {name: 'Свадьбы', data: [[70, 100 - 70]]},
-      {name: 'Дни рождения', data: [[70, 100 - 70]]},
-      {name: 'Выпускные', data: [[70, 100 - 70]]},
-      {name: 'Юбилеи', data: [[70, 100 - 70]]},
+      {name: 'Свадьбы', data: [[20, 30]]},
+      {name: 'Дни рождения', data: [[60, 90]]},
+      {name: 'Выпускные', data: [[15, 85]]},
+      {name: 'Юбилеи', data: [[5, 95]]},
     ];
     return result;
   }

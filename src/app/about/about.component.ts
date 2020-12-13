@@ -12,16 +12,16 @@ import {AboutService} from '../Services/about.service';
 export class AboutComponent implements OnInit {
 
   public doughnutChartLabels: Label[] = [' '];
-  public doughnutChartOptions: ChartOptions = {
-    responsive: true
-  };
   public legend = false;
   public doughnutChartData: MultiDataSet;
   public chartOptions: ChartOptions = {
     tooltips: {
       enabled: false
     },
-    cutoutPercentage: 86
+    cutoutPercentage: 86,
+    animation: {
+      duration: 3500
+    }
   };
   public colors: Color[] = [
     {

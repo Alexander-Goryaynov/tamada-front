@@ -1,6 +1,5 @@
 <head>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-  <script src="../../assets/js/main.js"></script>
 </head>
 <div id="blue">
   <div class="container">
@@ -15,6 +14,50 @@
   <!-- container -->
 </div>
 <!--  bluewrap -->
+
+<!-- PORTFOLIO SECTION -->
+<div id="dg">
+  <div class="container">
+    <div class="row centered">
+      <h4>Наша специализация</h4>
+      <br>
+      <!-- First Chart -->
+      <div *ngFor="let chartData of chartDataset">
+        <div class="col-lg-3">
+          <canvas baseChart
+                  [data]="chartData.data"
+                  [labels]="doughnutChartLabels"
+                  [chartType]="'doughnut'"
+                  [legend]="legend"
+                  [options]="chartOptions"
+                  [colors]="colors">
+          </canvas>
+          <br>
+          <p><b>{{chartData.name}}</b></p>
+        </div>
+      </div>
+    </div>
+    <!-- /col-lg-3 -->
+  </div>
+  <!-- row -->
+</div>
+<!-- container -->
+
+<!-- DG -->
+<div id="r">
+  <div class="container">
+    <div class="row centered">
+      <div class="col-lg-8 col-lg-offset-2">
+        <h4>Мы работаем для души.</h4>
+        <p>Мы верим, что каждый человек достоин хорошего отдыха в душевной компании с друзьями. Так почему бы не
+          устроить этот отдых? Позовите наших ребят и ваш праздник станет незабываемым, а хорошие впечатления останутся
+          на всю жизнь. </p>
+      </div>
+    </div>
+    <!-- row -->
+  </div>
+  <!-- container -->
+</div>
 
 <div class="container w">
   <div class="row centered">
@@ -64,50 +107,7 @@
 <!-- container -->
 
 
-<!-- PORTFOLIO SECTION -->
-<div id="dg">
-  <div class="container">
-    <div class="row centered">
-      <h4>Наша специализация</h4>
-      <br>
-      <!-- First Chart -->
-      <div *ngFor="let chartData of chartDataset">
-        <div class="col-lg-3">
-          <canvas baseChart
-                  [data]="chartData.data"
-                  [labels]="doughnutChartLabels"
-                  [chartType]="'doughnut'"
-                  [legend]="legend"
-                  [options]="chartOptions"
-                  [colors]="colors">
-          </canvas>
-          <br>
-          <p><b>{{chartData.name}}</b></p>
-          <p><small>There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-            alteration in some form.</small></p>
-        </div>
-      </div>
-    </div>
-    <!-- /col-lg-3 -->
-  </div>
-  <!-- row -->
-</div>
-<!-- container -->
-<!-- DG -->
-<div id="r">
-  <div class="container">
-    <div class="row centered">
-      <div class="col-lg-8 col-lg-offset-2">
-        <h4>Мы работаем для души.</h4>
-        <p>Мы верим, что каждый человек достоин хорошего отдыха в душевной компании с друзьями. Так почему бы не
-          устроить этот отдых? Позовите наших ребят и ваш праздник станет незабываемым, а хорошие впечатления останутся
-          на всю жизнь. </p>
-      </div>
-    </div>
-    <!-- row -->
-  </div>
-  <!-- container -->
-</div>
+
 <!-- FOOTER -->
 <div id="f">
   <div class="container">
