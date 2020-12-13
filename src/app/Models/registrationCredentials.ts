@@ -1,4 +1,4 @@
-export interface RegistrationCredentials {
+export class RegistrationCredentials {
   phone: string;
   name: string;
   surname: string;

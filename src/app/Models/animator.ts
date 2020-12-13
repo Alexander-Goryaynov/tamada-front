@@ -1,4 +1,4 @@
-export interface Animator {
+export class Animator {
   id: number;
   name: string;
   age: number;

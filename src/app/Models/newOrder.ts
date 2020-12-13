@@ -1,4 +1,4 @@
-export interface NewOrder {
+export class NewOrder {
   date: number;
   animatorId: number;
   event: string;

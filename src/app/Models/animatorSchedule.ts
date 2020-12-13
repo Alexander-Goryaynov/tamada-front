@@ -1,4 +1,4 @@
-export interface AnimatorSchedule {
+export class AnimatorSchedule {
   id: number;
   name: string;
   dates: number[];

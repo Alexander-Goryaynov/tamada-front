@@ -1,6 +1,6 @@
 import {AnimatorInfo} from './animatorInfo';
 
-export interface OrderInfo {
+export class OrderInfo {
   date: number;
   animator: AnimatorInfo;
   event: string;

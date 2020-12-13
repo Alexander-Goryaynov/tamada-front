@@ -1,3 +1,3 @@
-export interface RefreshModel {
+export class RefreshModel {
   refresh: any;
 }

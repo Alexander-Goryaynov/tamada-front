@@ -1,6 +1,6 @@
 import {OrderInfo} from './orderInfo';
 
-export interface UserInfo {
+export class UserInfo {
   phone: string;
   name: string;
   surname: string;
