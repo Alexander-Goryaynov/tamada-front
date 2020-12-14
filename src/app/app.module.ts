@@ -9,6 +9,7 @@ import {FormsModule} from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { AboutComponent } from './about/about.component';
 import { ChartsModule } from 'ng2-charts';
+import { BookComponent } from './book/book.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ChartsModule } from 'ng2-charts';
     MainComponent,
     LoginComponent,
     RegisterComponent,
-    AboutComponent
+    AboutComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,

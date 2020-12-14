@@ -8,7 +8,7 @@ jQuery(document).ready(function( $ ) {
       },
       {
         value: 15,
-        color: "#ecf0f1"
+        color: "#ffcaaa"
       }
     ];
     var myDoughnut = new Chart(document.getElementById("canvas").getContext("2d")).Doughnut(doughnutData);

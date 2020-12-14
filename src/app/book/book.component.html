@@ -1,0 +1,56 @@
+
+<div class="main" style="background: #ffd9b0;">
+  <div class="container-fluid" style="background: #ffd9b0;">
+  <div class="container">
+    <div class="booking-content">
+      <div class="booking-image">
+        <img class="booking-img img-responsive d-block" src="../../assets/img/form-img.jpg" alt="Booking Image">
+      </div>
+      <div class="booking-form">
+        <form id="booking-form">
+          <h2>Закажи себе аниматора!</h2>
+          <div class="form-group">
+            <div class="select-list">
+              <p class="label-book">Вид мероприятия</p>
+              <select name="time" id="time" required>
+                <option value="">Выпускной</option>
+                <option value="">День Рождения</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group form-input" style="margin-top: -50px !important;">
+            <input type="text" name="address" id="address" value="" required/>
+            <label for="address" class="form-label">Адрес мероприятия</label>
+          </div>
+          <div class="form-group form-input" >
+            <input type="number" name="phone" id="phone" value="" required />
+            <label for="phone" class="form-label">Ваш номер телефона</label>
+          </div>
+
+          <div class="form-group" style="margin-top: 30px !important; margin-bottom: 0px !important;">
+            <div class="select-list">
+              <p class="label-book">Аниматоры</p>
+              <select name="food" id="food" required>
+                <option value="seasonalfish">Алексей</option>
+                <option value="assortedmushrooms">Михаил</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group form-input" style="margin-top: -30px !important; margin-bottom: 0px !important;">
+            <input type="text" name="promocode" id="promocode" value="" required/>
+            <label for="promocode" class="form-label">Дата</label>
+          </div>
+          <div class="form-group form-input">
+            <label for="price" class="label-book">Цена</label>
+            <input type="text" name="price" id="price" value="" readonly/>
+          </div>
+          <div class="form-submit">
+            <input type="submit" value="Забронировать" class="submit" id="submit" name="submit" />
+          </div>
+        </form>
+      </div>
+    </div>
+   </div>
+  </div>
+</div>
+
