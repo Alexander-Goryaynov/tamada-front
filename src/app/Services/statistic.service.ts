@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class AboutService {
+export class StatisticService {
   getEventsStats(): ChartData[] {
     const result = [
       {name: 'Свадьбы', data: [[20, 30]]},

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ChartOptions, ChartType} from 'chart.js';
 import {Color, Label, MultiDataSet} from 'ng2-charts';
 import {ChartData} from '../Models/chartData';
-import {AboutService} from '../Services/about.service';
+import {StatisticService} from '../Services/statistic.service';
 
 @Component({
   selector: 'app-about',
@@ -30,10 +30,10 @@ export class AboutComponent implements OnInit {
   ];
   public chartDataset: ChartData[];
 
-  constructor(private aboutService: AboutService) {
+  constructor(private statisticService: StatisticService) {
   }
 
   ngOnInit(): void {
-    this.chartDataset = this.aboutService.getEventsStats();
+    this.chartDataset = this.statisticService.getEventsStats();
   }
 }
