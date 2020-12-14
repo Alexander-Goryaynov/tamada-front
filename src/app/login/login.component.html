@@ -16,10 +16,10 @@
           <div class="form-group">
             <input type="text" class="form-input" name="phone-number" pattern="[7-9]{1}[0-9]{10}"  placeholder="7XXXXXXXXXX" style="margin-top: 30px" required>
               <input type="text" class="form-input" name="password"  [type]="type" id="myInput" placeholder="Пароль" style="margin-top: 30px; margin-bottom: 20px " required/>
-              <input type="checkbox" (click)="myFunction()">   Показать пароль
+              <input type="checkbox" (click)="togglePasswordHide()">   Показать пароль
           </div>
           <div class="form-group">
-            <input type="submit" name="submit" id="submit" class="form-submit" value="Авторизация"/>
+            <button name="submit" id="submit" class="form-submit">Авторизация</button>
           </div>
         </form>
         <p class="loginhere">
