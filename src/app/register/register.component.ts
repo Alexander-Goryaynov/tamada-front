@@ -83,7 +83,7 @@ export class RegisterComponent implements OnInit {
 
   verifyPhone(): string {
     const phone = this.credentials.phone;
-    if (!phone.match(/\+7\d{10}/)) {
+    if (!phone.match(/^\+7\d{10}$/)) {
       return 'Неверный формат номера телефона';
     }
     if (this.containsSpecSymbols(phone)) {
