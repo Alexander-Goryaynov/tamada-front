@@ -11,5 +11,4 @@ export class ChangeKeyComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

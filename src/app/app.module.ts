@@ -16,6 +16,7 @@ import { ChangeKeyComponent } from './account/change-key/change-key.component';
 import { ChangeAnimatorComponent } from './animators-edit/change-animator/change-animator.component';
 import { AccountsViewComponent } from './accounts-view/accounts-view.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     AnimatorsEditComponent,
     ChangeKeyComponent,
     ChangeAnimatorComponent,
-    AccountsViewComponent
+    AccountsViewComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

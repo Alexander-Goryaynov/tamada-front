@@ -17,21 +17,7 @@
 </head>
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 <body>
-<!-- navbar - это хедер; inverse - цвет, fixed-top - фиксированное положение -->
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/">ST<i class="fa fa-star"></i>R</a>
-    </div>
-    <ul class="nav navbar-nav navbar-right d-sm-flex">
-      <li class="active"><a routerLink="/">Домой</a></li>
-      <li><a routerLink="/about">О нас</a></li>
-      <li><a routerLink="/login">Войти</a></li>
-      <li><a href="#">Наши мероприятия</a></li>
-      <li><a href="#"><i class="fa fa-envelope"></i></a></li>
-    </ul>
-  </div>
-</div>
+<app-navbar></app-navbar>
 <router-outlet></router-outlet>
 <!-- Footer -->
 <div id="copyrights">

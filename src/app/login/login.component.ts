@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {UserService} from '../Services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   // tslint:disable-next-line:ban-types
   type: String = 'password';
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void { }
 
@@ -21,5 +22,13 @@ export class LoginComponent implements OnInit {
     } else {
       this.type = 'password';
     }
+  }
+
+  onSubmit(): void {
+    // TODO
+  }
+
+  displayError(): void {
+    // TODO
   }
 }

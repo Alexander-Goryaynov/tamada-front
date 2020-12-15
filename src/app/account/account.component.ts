@@ -12,4 +12,11 @@ export class AccountComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  loadOrders(): void {
+    // TODO
+  }
+
+  loadFio(): void {
+    // TODO
+  }
 }
