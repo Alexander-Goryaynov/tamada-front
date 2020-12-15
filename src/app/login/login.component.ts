@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  myFunction(): void {
+  togglePasswordHide(): void {
     if (this.type === 'password') {
       this.type = 'text';
     } else {

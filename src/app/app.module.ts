@@ -15,6 +15,8 @@ import { AnimatorsEditComponent } from './animators-edit/animators-edit.componen
 import { ChangeKeyComponent } from './account/change-key/change-key.component';
 import { ChangeAnimatorComponent } from './animators-edit/change-animator/change-animator.component';
 import { AccountsViewComponent } from './accounts-view/accounts-view.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { AccountsViewComponent } from './accounts-view/accounts-view.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
