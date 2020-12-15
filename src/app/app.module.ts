@@ -10,6 +10,11 @@ import { RegisterComponent } from './register/register.component';
 import { AboutComponent } from './about/about.component';
 import { ChartsModule } from 'ng2-charts';
 import { BookComponent } from './book/book.component';
+import { AccountComponent } from './account/account.component';
+import { AnimatorsEditComponent } from './animators-edit/animators-edit.component';
+import { ChangeKeyComponent } from './account/change-key/change-key.component';
+import { ChangeAnimatorComponent } from './animators-edit/change-animator/change-animator.component';
+import { AccountsViewComponent } from './accounts-view/accounts-view.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,12 @@ import { BookComponent } from './book/book.component';
     LoginComponent,
     RegisterComponent,
     AboutComponent,
-    BookComponent
+    BookComponent,
+    AccountComponent,
+    AnimatorsEditComponent,
+    ChangeKeyComponent,
+    ChangeAnimatorComponent,
+    AccountsViewComponent
   ],
   imports: [
     BrowserModule,
