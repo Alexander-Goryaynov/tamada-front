@@ -34,6 +34,8 @@ export class AboutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chartDataset = this.statisticService.getEventsStats();
+    this.statisticService.getEventsStats().subscribe(result => {
+      this.chartDataset = result;
+    });
   }
 }

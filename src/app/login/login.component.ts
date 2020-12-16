@@ -8,6 +8,9 @@ import {UserService} from '../Services/user.service';
 })
 export class LoginComponent implements OnInit {
 
+  private login: string;
+  private password: string;
+
   @Input()
   // tslint:disable-next-line:ban-types
   type: String = 'password';

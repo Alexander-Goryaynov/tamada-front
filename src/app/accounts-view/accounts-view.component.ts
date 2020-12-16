@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserInfo} from '../Models/userInfo';
+import {UserService} from '../Services/user.service';
 
 @Component({
   selector: 'app-accounts-view',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountsViewComponent implements OnInit {
 
-  constructor() { }
+  private accounts: UserInfo[];
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
   }
 
+  private loadData(): void {
+    // todo
+  }
+
+  deleteAccount(id: number): void {
+    // todo
+  }
+
+  displayError(message: string): void {
+    // todo
+  }
 }

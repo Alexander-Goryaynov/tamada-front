@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {OrderListInfo} from '../Models/orderListInfo';
 
 @Component({
   selector: 'app-account',
@@ -7,16 +8,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountComponent implements OnInit {
 
+  private orders: OrderListInfo[];
+  private fio: string;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  loadOrders(): void {
+  private loadOrders(): void {
     // TODO
   }
 
-  loadFio(): void {
+  private loadFioLabel(): void {
     // TODO
+  }
+
+  private hasEditPermissions(): boolean {
+    // todo
+    return false;
+  }
+
+  private editOrder(id: number): void {
+
+  }
+
+  private deleteOrder(id: number): void {
+
   }
 }

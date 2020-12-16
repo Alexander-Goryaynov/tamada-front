@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from '../Services/user.service';
+import {AnimatorService} from '../Services/animator.service';
+import {Animator} from '../Models/animator';
+import {Role} from '../Enums/role';
 
 @Component({
   selector: 'app-animators-edit',
@@ -7,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnimatorsEditComponent implements OnInit {
 
-  constructor() { }
+  private animators: Animator[];
+  private role: Role;
+  private fio: string;
+
+  constructor(
+    userService: UserService,
+    animatorService: AnimatorService
+  ) { }
 
   ngOnInit(): void {
   }
 
+  loadAnimators(): void {
+  }
+
+  loadFioLabel(): string {
+    // todo
+    return '';
+  }
 }
