@@ -11,6 +11,8 @@ import {ChangeProfileComponent} from './account/change-profile/change-profile.co
 import {OrdersViewComponent} from './account/orders-view.component';
 import {CreateUpdateAnimatorComponent} from './account/animators-view/create-update-animator/create-update-animator.component';
 import {AnimatorsViewComponent} from './account/animators-view/animators-view.component';
+import {EventsComponent} from './events/events.component';
+import {VerifyPhoneComponent} from './verify-phone/verify-phone.component';
 
 const routes: Routes = [
   {path: 'main', component: MainComponent},
@@ -23,6 +25,8 @@ const routes: Routes = [
   {path: 'orders-view', component: OrdersViewComponent},
   {path: 'create-update-animator', component: CreateUpdateAnimatorComponent},
   {path: 'animators-view', component: AnimatorsViewComponent},
+  {path: 'events', component: EventsComponent},
+  {path: 'verify-phone', component: VerifyPhoneComponent},
   {path: '', redirectTo: '/main', pathMatch: 'full'},
   {path: '**', redirectTo: '/main', pathMatch: 'full'}
 ];

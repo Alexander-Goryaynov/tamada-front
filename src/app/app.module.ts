@@ -17,6 +17,8 @@ import {AccountsViewComponent} from './account/accounts-view/accounts-view.compo
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import {NavbarComponent} from './navbar/navbar.component';
 import {CreateUpdateAnimatorComponent} from './account/animators-view/create-update-animator/create-update-animator.component';
+import { EventsComponent } from './events/events.component';
+import { VerifyPhoneComponent } from './verify-phone/verify-phone.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import {CreateUpdateAnimatorComponent} from './account/animators-view/create-upd
     ChangeProfileComponent,
     AccountsViewComponent,
     NavbarComponent,
-    CreateUpdateAnimatorComponent
+    CreateUpdateAnimatorComponent,
+    EventsComponent,
+    VerifyPhoneComponent
   ],
   imports: [
     BrowserModule,
