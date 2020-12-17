@@ -15,18 +15,18 @@ import {EventsComponent} from './events/events.component';
 import {VerifyPhoneComponent} from './verify-phone/verify-phone.component';
 
 const routes: Routes = [
-  {path: 'main', component: MainComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'about', component: AboutComponent},
-  {path: 'book', component: BookComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'accounts-view', component: AccountsViewComponent},
-  {path: 'change-profile', component: ChangeProfileComponent},
-  {path: 'orders-view', component: OrdersViewComponent},
-  {path: 'create-update-animator', component: CreateUpdateAnimatorComponent},
-  {path: 'animators-view', component: AnimatorsViewComponent},
-  {path: 'events', component: EventsComponent},
-  {path: 'verify-phone', component: VerifyPhoneComponent},
+  {path: 'main', component: MainComponent, data: {animation: 'Main'}},
+  {path: 'login', component: LoginComponent, data: {animation: 'Login'}},
+  {path: 'about', component: AboutComponent, data: {animation: 'About'}},
+  {path: 'book', component: BookComponent, data: {animation: 'Book'}},
+  {path: 'register', component: RegisterComponent, data: {animation: 'Register'}},
+  {path: 'accounts-view', component: AccountsViewComponent, data: {animation: 'AccountsView'}},
+  {path: 'change-profile', component: ChangeProfileComponent, data: {animation: 'ChangeProfile'}},
+  {path: 'orders-view', component: OrdersViewComponent, data: {animation: 'OrdersView'}},
+  {path: 'create-update-animator', component: CreateUpdateAnimatorComponent, data: {animation: 'CreateUpdateAnimator'}},
+  {path: 'animators-view', component: AnimatorsViewComponent, data: {animation: 'AnimatorsView'}},
+  {path: 'events', component: EventsComponent, data: {animation: 'Events'}},
+  {path: 'verify-phone', component: VerifyPhoneComponent, data: {animation: 'VerifyPhone'}},
   {path: '', redirectTo: '/main', pathMatch: 'full'},
   {path: '**', redirectTo: '/main', pathMatch: 'full'}
 ];

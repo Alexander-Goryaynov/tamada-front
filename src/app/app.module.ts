@@ -17,8 +17,9 @@ import {AccountsViewComponent} from './account/accounts-view/accounts-view.compo
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import {NavbarComponent} from './navbar/navbar.component';
 import {CreateUpdateAnimatorComponent} from './account/animators-view/create-update-animator/create-update-animator.component';
-import { EventsComponent } from './events/events.component';
-import { VerifyPhoneComponent } from './verify-phone/verify-phone.component';
+import {EventsComponent} from './events/events.component';
+import {VerifyPhoneComponent} from './verify-phone/verify-phone.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { VerifyPhoneComponent } from './verify-phone/verify-phone.component';
     FormsModule,
     ChartsModule,
     SweetAlert2Module.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
