@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {UserInfo} from '../Models/userInfo';
-import {UserService} from '../Services/user.service';
+import {UserInfo} from '../../Models/userInfo';
+import {UserService} from '../../Services/user.service';
 
 @Component({
   selector: 'app-accounts-view',

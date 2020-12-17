@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {RegistrationCredentials} from '../../Models/registrationCredentials';
 
 @Component({
-  selector: 'app-change-key',
-  templateUrl: './change-key.component.html',
-  styleUrls: ['./change-key.component.css']
+  selector: 'app-change-profile',
+  templateUrl: './change-profile.component.html',
+  styleUrls: ['./change-profile.component.css']
 })
-export class ChangeKeyComponent implements OnInit {
+export class ChangeProfileComponent implements OnInit {
 
   constructor() { }
 

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateAnimatorComponent } from './create-animator.component';
+import { ChangeProfileComponent } from './change-profile.component';
 
-describe('CreateAnimatorComponent', () => {
-  let component: CreateAnimatorComponent;
-  let fixture: ComponentFixture<CreateAnimatorComponent>;
+describe('ChangeProfileComponent', () => {
+  let component: ChangeProfileComponent;
+  let fixture: ComponentFixture<ChangeProfileComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateAnimatorComponent ]
+      declarations: [ ChangeProfileComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateAnimatorComponent);
+    fixture = TestBed.createComponent(ChangeProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

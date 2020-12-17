@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {OrderListInfo} from '../Models/orderListInfo';
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  selector: 'app-orders-view',
+  templateUrl: './orders-view.component.html',
+  styleUrls: ['./orders-view.component.css']
 })
-export class AccountComponent implements OnInit {
+export class OrdersViewComponent implements OnInit {
 
   private orders: OrderListInfo[];
   private fio: string;

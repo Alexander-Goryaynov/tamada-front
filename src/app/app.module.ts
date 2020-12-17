@@ -10,14 +10,13 @@ import {RegisterComponent} from './register/register.component';
 import {AboutComponent} from './about/about.component';
 import {ChartsModule} from 'ng2-charts';
 import {BookComponent} from './book/book.component';
-import {AccountComponent} from './account/account.component';
-import {AnimatorsEditComponent} from './animators-edit/animators-edit.component';
-import {ChangeKeyComponent} from './account/change-key/change-key.component';
-import {ChangeAnimatorComponent} from './animators-edit/change-animator/change-animator.component';
-import {AccountsViewComponent} from './accounts-view/accounts-view.component';
+import {OrdersViewComponent} from './account/orders-view.component';
+import {AnimatorsViewComponent} from './account/animators-view/animators-view.component';
+import {ChangeProfileComponent} from './account/change-profile/change-profile.component';
+import {AccountsViewComponent} from './account/accounts-view/accounts-view.component';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import {NavbarComponent} from './navbar/navbar.component';
-import { CreateAnimatorComponent } from './animators-edit/create-animator/create-animator.component';
+import {CreateUpdateAnimatorComponent} from './account/animators-view/create-update-animator/create-update-animator.component';
 
 
 @NgModule({
@@ -28,13 +27,12 @@ import { CreateAnimatorComponent } from './animators-edit/create-animator/create
     RegisterComponent,
     AboutComponent,
     BookComponent,
-    AccountComponent,
-    AnimatorsEditComponent,
-    ChangeKeyComponent,
-    ChangeAnimatorComponent,
+    OrdersViewComponent,
+    AnimatorsViewComponent,
+    ChangeProfileComponent,
     AccountsViewComponent,
     NavbarComponent,
-    CreateAnimatorComponent
+    CreateUpdateAnimatorComponent
   ],
   imports: [
     BrowserModule,
