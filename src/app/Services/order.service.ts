@@ -10,7 +10,7 @@ import {NewOrder} from '../Models/newOrder';
 })
 export class OrderService {
 
-  private ordersApiUrl = `${apiUrl}/orders/v1`;
+  private ordersApiUrl: string;
 
   constructor(private http: HttpClient) {
     // todo

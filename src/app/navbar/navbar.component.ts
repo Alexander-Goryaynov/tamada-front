@@ -11,16 +11,18 @@ import {Router} from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  private role: Role;
   private user: JwtResponse;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) {
+    // todo
+  }
 
   ngOnInit(): void {
+    // todo
   }
 
   logout(): void {
-
+    // todo
   }
 
 }

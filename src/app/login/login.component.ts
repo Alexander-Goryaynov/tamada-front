@@ -11,20 +11,16 @@ export class LoginComponent implements OnInit {
   private login: string;
   private password: string;
 
-  @Input()
-  // tslint:disable-next-line:ban-types
-  type: String = 'password';
+  constructor(private userService: UserService) {
+    // todo
+  }
 
-  constructor(private userService: UserService) { }
-
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // todo
+  }
 
   togglePasswordHide(): void {
-    if (this.type === 'password') {
-      this.type = 'text';
-    } else {
-      this.type = 'password';
-    }
+    // todo
   }
 
   onSubmit(): void {

@@ -10,8 +10,8 @@ import {AnimatorSchedule} from '../Models/animatorSchedule';
 })
 export class AnimatorService {
 
-  private animatorsApiUrl = `${apiUrl}/animators/v1`;
-  private schedulesApiUrl = `${this.animatorsApiUrl}/schedules`;
+  private animatorsApiUrl: string;
+  private schedulesApiUrl: string;
 
   constructor(private http: HttpClient) {
     // todo

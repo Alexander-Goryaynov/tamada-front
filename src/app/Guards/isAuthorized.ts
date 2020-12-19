@@ -9,6 +9,7 @@ import {Observable} from 'rxjs';
 export class IsAuthorized implements CanActivate {
 
   constructor(private router: Router, private userService: UserService) {
+    // todo
   }
 
   canActivate(

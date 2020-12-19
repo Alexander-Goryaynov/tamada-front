@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from '../Services/user.service';
 
 @Component({
   selector: 'app-verify-phone',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerifyPhoneComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService) {
+    // todo
+  }
 
   ngOnInit(): void {
+    // todo
+  }
+
+  verify(): boolean {
+    // todo
+    return false;
   }
 
 }

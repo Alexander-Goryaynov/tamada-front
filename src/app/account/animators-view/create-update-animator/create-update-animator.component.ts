@@ -11,9 +11,12 @@ export class CreateUpdateAnimatorComponent implements OnInit {
 
   private animator: Animator;
 
-  constructor(private service: AnimatorService) { }
+  constructor(private service: AnimatorService) {
+    // todo
+  }
 
   ngOnInit(): void {
+    // todo
   }
 
   private onSubmit(): void {
@@ -22,6 +25,11 @@ export class CreateUpdateAnimatorComponent implements OnInit {
 
   private displayError(message: string): void {
     // todo
+  }
+
+  private validate(): boolean {
+    // todo
+    return false;
   }
 
 }

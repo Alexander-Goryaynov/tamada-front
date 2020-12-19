@@ -11,9 +11,12 @@ export class OrdersViewComponent implements OnInit {
   private orders: OrderListInfo[];
   private fio: string;
 
-  constructor() { }
+  constructor() {
+    // todo
+  }
 
   ngOnInit(): void {
+    // todo
   }
 
   private loadOrders(): void {
@@ -30,10 +33,10 @@ export class OrdersViewComponent implements OnInit {
   }
 
   private editOrder(id: number): void {
-
+    // todo
   }
 
   private deleteOrder(id: number): void {
-
+    // todo
   }
 }

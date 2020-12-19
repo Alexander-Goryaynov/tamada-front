@@ -20,6 +20,7 @@ export class BookComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // todo
   }
 
   private onSubmit(): void {

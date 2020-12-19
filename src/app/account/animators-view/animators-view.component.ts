@@ -12,8 +12,6 @@ import {Role} from '../../Enums/role';
 export class AnimatorsViewComponent implements OnInit {
 
   private animators: Animator[];
-  private role: Role;
-  private fio: string;
 
   constructor(
     userService: UserService,
@@ -24,10 +22,5 @@ export class AnimatorsViewComponent implements OnInit {
   }
 
   loadAnimators(): void {
-  }
-
-  loadFioLabel(): string {
-    // todo
-    return '';
   }
 }

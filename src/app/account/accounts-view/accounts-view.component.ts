@@ -11,9 +11,12 @@ export class AccountsViewComponent implements OnInit {
 
   private accounts: UserInfo[];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {
+    // todo
+  }
 
   ngOnInit(): void {
+    // todo
   }
 
   private loadData(): void {
