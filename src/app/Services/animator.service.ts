@@ -4,6 +4,8 @@ import {apiUrl} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {Animator} from '../Models/animator';
 import {AnimatorSchedule} from '../Models/animatorSchedule';
+import {AnimatorModel} from '../DataStorage/DataModels/AnimatorModel';
+import {AppComponent} from '../app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +19,8 @@ export class AnimatorService {
     // todo
   }
 
-  getAnimatorsWithPhotos(page: number): Observable<Animator> {
-    // todo
-    return new Observable<Animator>();
+  getAnimatorsWithPhotos(): AnimatorModel[] {
+    return AppComponent.database.getAllAnimators();
   }
 
   getAnimatorsWithSchedules(): Observable<AnimatorSchedule> {

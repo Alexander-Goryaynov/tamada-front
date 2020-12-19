@@ -3,6 +3,8 @@ import {ChartOptions, ChartType} from 'chart.js';
 import {Color, Label, MultiDataSet} from 'ng2-charts';
 import {ChartData} from '../Models/chartData';
 import {StatisticService} from '../Services/statistic.service';
+import {AnimatorService} from '../Services/animator.service';
+import {AnimatorModel} from '../DataStorage/DataModels/AnimatorModel';
 
 @Component({
   selector: 'app-about',
@@ -11,10 +13,10 @@ import {StatisticService} from '../Services/statistic.service';
 })
 export class AboutComponent implements OnInit {
 
-  public doughnutChartLabels: Label[] = [' '];
-  public legend = false;
-  public doughnutChartData: MultiDataSet;
-  public chartOptions: ChartOptions = {
+  private doughnutChartLabels: Label[] = [' '];
+  private legend = false;
+  private doughnutChartData: MultiDataSet;
+  private chartOptions: ChartOptions = {
     tooltips: {
       enabled: false
     },
@@ -23,19 +25,25 @@ export class AboutComponent implements OnInit {
       duration: 3500
     }
   };
-  public colors: Color[] = [
+  private colors: Color[] = [
     {
       backgroundColor: ['rgba(248,92,56,1)', 'rgba(255,202,160,1)']
     }
   ];
-  public chartDataset: ChartData[];
+  private chartDataset: ChartData[];
+  private columns = 4;
+  private animators: AnimatorModel[];
 
-  constructor(private statisticService: StatisticService) {
+  constructor(
+    private statisticService: StatisticService,
+    private animatorService: AnimatorService
+  ) {
   }
 
   ngOnInit(): void {
     this.statisticService.getEventsStats().subscribe(result => {
       this.chartDataset = result;
     });
+    this.animators = this.animatorService.getAnimatorsWithPhotos();
   }
 }

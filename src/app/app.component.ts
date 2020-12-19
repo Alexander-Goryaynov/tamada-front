@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {slideInAnimation} from './route-animation';
+import {Database} from './DataStorage/Database';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,5 @@ import {slideInAnimation} from './route-animation';
 })
 export class AppComponent {
   title = 'tamada-front';
+  static database = Database.getInstance();
 }
