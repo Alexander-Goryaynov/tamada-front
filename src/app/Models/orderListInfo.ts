@@ -2,8 +2,12 @@ import {AnimatorInfo} from './animatorInfo';
 import {OrderUserInfo} from './orderUserInfo';
 
 export class OrderListInfo {
-  date: number;
-  animator: AnimatorInfo;
-  user: OrderUserInfo;
+  id: number;
+  creationDate: string;
+  date: string;
+  animatorName: string;
+  address: string;
+  user: string;
   event: string;
+  price: string;
 }

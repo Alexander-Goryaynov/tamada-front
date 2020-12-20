@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OrderListInfo} from '../Models/orderListInfo';
+import {UserService} from '../Services/user.service';
+import {OrderService} from '../Services/order.service';
 
 @Component({
   selector: 'app-orders-view',
@@ -8,20 +10,30 @@ import {OrderListInfo} from '../Models/orderListInfo';
 })
 export class OrdersViewComponent implements OnInit {
 
-  private orders: OrderListInfo[];
-  private fio: string;
+  orders: OrderListInfo[];
+  fio: string;
+  phone: string;
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+    private orderService: OrderService
+  ) {
+  }
 
   ngOnInit(): void {
+    this.loadOrders();
+    this.loadFioLabel();
   }
 
   private loadOrders(): void {
-    // TODO
+    this.orders = this.orderService.getOrdersList();
+    console.log(this.orders);
   }
 
   private loadFioLabel(): void {
-    // TODO
+    let currentUser = this.userService.getUserInfo();
+    this.phone = currentUser.phone;
+    this.fio = currentUser.name;
   }
 
   private hasEditPermissions(): boolean {

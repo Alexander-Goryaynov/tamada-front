@@ -1,23 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
-import {JwtResponse} from '../Models/jwtResponse';
 import {Observable} from 'rxjs';
-import {RegistrationResponse} from '../Models/registrationResponse';
 import {RegistrationCredentials} from '../Models/registrationCredentials';
 import {RegistrationCode} from '../Models/registrationCode';
 import {TokensModel} from '../Models/tokensModel';
-import {apiUrl} from '../../environments/environment';
 import {UserInfo} from '../Models/userInfo';
 import {AppComponent} from '../app.component';
-import {Database} from '../DataStorage/Database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private currentUser: string;
+  static currentUser: string;
 
   constructor(private http: HttpClient,
               private cookieService: CookieService) {
@@ -29,8 +25,8 @@ export class UserService {
     if (user === undefined || user.password.localeCompare(password) !== 0) {
       throw 'Неверные данные';
     }
-    this.currentUser = login;
-    console.log('УСПЕШНО:' + this.currentUser);
+    UserService.currentUser = login;
+    console.log('УСПЕШНО:' + UserService.currentUser);
   }
 
   logout(): void {
@@ -60,9 +56,12 @@ export class UserService {
     return new Observable<UserInfo>();
   }
 
-  getUserInfo(): Observable<UserInfo> {
-    // todo
-    return new Observable<UserInfo>();
+  getUserInfo(): UserInfo {
+    let userViewModel = new UserInfo();
+    let user = AppComponent.database.getUser(UserService.currentUser);
+    userViewModel.name = user.name;
+    userViewModel.phone = user.phone;
+    return userViewModel;
   }
 
   private displayError(): void {
