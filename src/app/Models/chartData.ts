@@ -1,6 +1,6 @@
 import {Color, MultiDataSet} from 'ng2-charts';
 
 export class ChartData {
-  name: string;
-  data: MultiDataSet;
+  constructor(public name: string, public data: MultiDataSet) {
+  }
 }

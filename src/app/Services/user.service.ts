@@ -10,22 +10,27 @@ import {TokensModel} from '../Models/tokensModel';
 import {apiUrl} from '../../environments/environment';
 import {UserInfo} from '../Models/userInfo';
 import {AppComponent} from '../app.component';
+import {Database} from '../DataStorage/Database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private currentUser: Observable<JwtResponse>;
+  private currentUser: string;
 
   constructor(private http: HttpClient,
               private cookieService: CookieService) {
     // TODO
   }
 
-  login(login: string, password: string): Observable<JwtResponse> {
-    // todo
-    return new Observable<JwtResponse>();
+  login(login: string, password: string): void {
+    let user = AppComponent.database.getUser(login);
+    if (user === undefined || user.password.localeCompare(password) !== 0) {
+      throw 'Неверные данные';
+    }
+    this.currentUser = login;
+    console.log('УСПЕШНО:' + this.currentUser);
   }
 
   logout(): void {

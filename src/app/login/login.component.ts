@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../Services/user.service';
+import {Router} from '@angular/router';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -8,16 +10,20 @@ import {UserService} from '../Services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  private login: string;
-  private password: string;
+  login: string;
+  password: string;
+  swalMessage: string = '';
+  swalVisibility: boolean = false;
 
   @Input()
-  // tslint:disable-next-line:ban-types
+    // tslint:disable-next-line:ban-types
   type: String = 'password';
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) {
+  }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   togglePasswordHide(): void {
     if (this.type === 'password') {
@@ -28,10 +34,19 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // TODO
+    try {
+      this.userService.login(this.login, this.password);
+      this.router.navigateByUrl('/orders-view');
+    } catch (e) {
+      this.displayError(e);
+    }
   }
 
-  displayError(): void {
-    // TODO
+  displayError(message: string): void {
+    this.swalMessage = message;
+    this.swalVisibility = true;
+    setTimeout(() => {
+      this.swalVisibility = false;
+    }, 2000);
   }
 }
