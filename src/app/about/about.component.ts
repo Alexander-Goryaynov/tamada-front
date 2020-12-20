@@ -30,9 +30,9 @@ export class AboutComponent implements OnInit {
       backgroundColor: ['rgba(248,92,56,1)', 'rgba(255,202,160,1)']
     }
   ];
-  private chartDataset: ChartData[];
+  chartDataset: ChartData[];
   private columns = 4;
-  private animators: AnimatorModel[];
+  animators: AnimatorModel[];
 
   constructor(
     private statisticService: StatisticService,

@@ -9,6 +9,7 @@ import {RegistrationCode} from '../Models/registrationCode';
 import {TokensModel} from '../Models/tokensModel';
 import {apiUrl} from '../../environments/environment';
 import {UserInfo} from '../Models/userInfo';
+import {AppComponent} from '../app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -31,9 +32,17 @@ export class UserService {
     // todo
   }
 
-  register(creds: RegistrationCredentials): Observable<RegistrationResponse> {
-    // todo
-    return new Observable<RegistrationResponse>();
+  register(creds: RegistrationCredentials): void {
+    let newUser = new UserInfo();
+    newUser.name = creds.name;
+    newUser.password = creds.password;
+    newUser.phone = creds.phone;
+    newUser.orders = [];
+    try {
+      AppComponent.database.createUser(newUser);
+    } catch (e) {
+      throw e;
+    }
   }
 
   verifyPhone(code: RegistrationCode): Observable<TokensModel> {

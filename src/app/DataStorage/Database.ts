@@ -8,9 +8,9 @@ import {OrderStatus} from './Enums/OrderStatus';
 import {AnimatorMocks} from './animatorMocks';
 
 export class Database {
-  private animators: AnimatorModel[];
-  private orders: OrderModel[];
-  private users: UserModel[];
+  private animators: AnimatorModel[] = [];
+  private orders: OrderModel[] = [];
+  private users: UserModel[] = [];
   private static instance: Database;
 
   private constructor() {
@@ -36,6 +36,10 @@ export class Database {
 
   createUser(newUser: UserInfo): void {
     let user = new UserModel(newUser.phone, newUser.name, newUser.password);
+    if (this.users
+      .find(user => user.phone.localeCompare(newUser.phone) === 0) !== undefined) {
+      throw 'Уже существует пользователь с таким номером телефона';
+    }
     this.users.push(user);
   }
 

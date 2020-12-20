@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import {RegistrationCredentials} from '../Models/registrationCredentials';
 import { Router } from '@angular/router';
+import {UserService} from '../Services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -22,10 +23,22 @@ export class RegisterComponent implements OnInit {
   specSymbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '?', '>', '<',
     '/', '\\', '.', ',', '[', ']', '{', '}', '~', ':', ';', '|', '№'];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.credentials = new RegistrationCredentials();
+  }
+
+  submit(): void {
+    if (!this.verifyCredentials()) {
+      return;
+    }
+    try {
+      this.userService.register(this.credentials);
+      this.displayAlert('Регистрация прошла успешно', 'success', true);
+    } catch (e) {
+      this.displayAlert(e, 'error', false);
+    }
   }
 
   togglePasswordHide(): void {
@@ -36,23 +49,27 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  verifyCredentials(): void {
+  verifyCredentials(): boolean {
     this.checkRepeatedPassword();
     if (!this.unmatchPasswordsHidden) {
-      return;
+      return false;
     }
     const passwordResult = this.verifyPassword();
     const fioResult = this.verifyFio();
     const phoneResult = this.verifyPhone();
     if (passwordResult.localeCompare('OK') !== 0) {
       this.displayAlert(passwordResult, 'error', false);
-    } else if (fioResult.localeCompare('OK') !== 0) {
-      this.displayAlert(fioResult, 'error', false);
-    } else if (phoneResult.localeCompare('OK') !== 0) {
-      this.displayAlert(phoneResult, 'error', false);
-    } else {
-      this.displayAlert('Данные сохранены', 'success', true);
+      return false;
     }
+    if (fioResult.localeCompare('OK') !== 0) {
+      this.displayAlert(fioResult, 'error', false);
+      return false;
+    }
+    if (phoneResult.localeCompare('OK') !== 0) {
+      this.displayAlert(phoneResult, 'error', false);
+      return false;
+    }
+    return true;
   }
 
   displayAlert(message: string, icon: string, doRedirect: boolean): void {
@@ -108,8 +125,6 @@ export class RegisterComponent implements OnInit {
     if (this.repeatPassword === '' && this.credentials.password === '') {
       this.unmatchPasswordsHidden = true;
     }
-    console.log(this.credentials.password, this.repeatPassword);
-    console.log(this.unmatchPasswordsHidden.toString());
   }
 
   containsSpecSymbols(password: string): boolean {
