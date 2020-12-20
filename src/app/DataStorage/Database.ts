@@ -6,6 +6,7 @@ import {NewOrder} from '../Models/newOrder';
 import {EventType} from './Enums/EventType';
 import {OrderStatus} from './Enums/OrderStatus';
 import {AnimatorMocks} from './animatorMocks';
+import {UserMocks} from './userMocks';
 
 export class Database {
   private animators: AnimatorModel[] = [];
@@ -15,6 +16,7 @@ export class Database {
 
   private constructor() {
     this.animators = AnimatorMocks.animators;
+    this.users = UserMocks.users;
   }
 
   public static getInstance(): Database {
