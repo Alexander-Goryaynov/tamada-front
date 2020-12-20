@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import {RegistrationCredentials} from '../Models/registrationCredentials';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {UserService} from '../Services/user.service';
 
 @Component({
@@ -23,7 +23,8 @@ export class RegisterComponent implements OnInit {
   specSymbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '?', '>', '<',
     '/', '\\', '.', ',', '[', ']', '{', '}', '~', ':', ';', '|', '№'];
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService) {
+  }
 
   ngOnInit(): void {
     this.credentials = new RegistrationCredentials();
