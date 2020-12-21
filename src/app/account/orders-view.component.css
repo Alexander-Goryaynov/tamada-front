@@ -153,6 +153,14 @@ table.table td a.view {
   border-radius: 30px;
   text-align: center;
 }
+.btn{
+  color: white !important;
+}
+.empty{
+  text-align: center;
+  font-size: 18px;
+  margin: 20px;
+}
 table.table td a.view i {
   font-size: 22px;
   margin: 2px 0 0 1px;

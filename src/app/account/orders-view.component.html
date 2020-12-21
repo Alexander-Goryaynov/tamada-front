@@ -37,14 +37,14 @@
         <thead>
         <tr>
           <th>#</th>
-          <th *ngIf="isAdmin">Клиент</th>
-          <th>Статус</th>
-          <th>Дата</th>
-          <th>Событие</th>
-          <th>Адрес</th>
-          <th>Аниматор</th>
-          <th>Сумма</th>
-          <th>Создан</th>
+          <th style="width:15%" *ngIf="isAdmin">Клиент</th>
+          <th style="width:12%">Статус заказа</th>
+          <th style="width:12%">Дата</th>
+          <th style="width:10%">Событие</th>
+          <th style="width:15%">Адрес</th>
+          <th style="width:15%">Аниматор</th>
+          <th style="width:12%">Сумма</th>
+          <th style="width:7%">Создан</th>
           <th *ngIf="!isAdmin"></th>
           <th *ngIf="isAdmin"></th>
           <th *ngIf="isAdmin"></th>
@@ -78,24 +78,24 @@
           <td>{{order.creationDate}}</td>
           <td *ngIf="!isAdmin">
             <button *ngIf="order.status.localeCompare('Обработка') === 0"
-                    (click)="cancelOrder(order.id)">
+                    (click)="cancelOrder(order.id)" type="button" class="btn btn-danger" style="background-color: #d9534f !important;">
               Отменить
             </button>
           </td>
           <td *ngIf="isAdmin">
             <button *ngIf="order.status.localeCompare('Обработка') === 0"
-                    (click)="finishOrder(order.id)">
+                    (click)="finishOrder(order.id)" type="button" class="btn btn-success" style="background-color: #5cb85c !important;">
               Завершить
             </button>
           </td>
           <td *ngIf="isAdmin">
-            <button (click)="deleteOrder(order.id)">Удалить</button>
+            <button (click)="deleteOrder(order.id)" type="button" class="btn btn-danger" style="background-color: #d9534f !important;">Удалить</button>
           </td>
         </tr>
         </tbody>
       </table>
-      <p *ngIf="orders.length === 0">
-        Здесь пока пусто. Перейдите в раздел бронирования для заказа аниматора!
+      <p class="empty" *ngIf="orders.length === 0">
+        Здесь пока пусто. <i class="fa fa-star-half-empty"></i> Перейдите в раздел бронирования для заказа аниматора!
       </p>
     </div>
   </div>
