@@ -9,6 +9,7 @@ import {Animator} from '../../../Models/animator';
 })
 export class CreateUpdateAnimatorComponent implements OnInit {
 
+  private animatorId: number | null;
   private animator: Animator;
 
   constructor(private service: AnimatorService) { }
@@ -17,11 +18,15 @@ export class CreateUpdateAnimatorComponent implements OnInit {
   }
 
   private onSubmit(): void {
-    // todo
   }
 
   private displayError(message: string): void {
-    // todo
+  }
+
+  private createAnimator(): void {
+  }
+
+  private updateAnimator(): void {
   }
 
 }

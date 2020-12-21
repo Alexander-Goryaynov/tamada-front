@@ -4,7 +4,6 @@ import {Color, Label, MultiDataSet} from 'ng2-charts';
 import {ChartData} from '../Models/chartData';
 import {StatisticService} from '../Services/statistic.service';
 import {AnimatorService} from '../Services/animator.service';
-import {AnimatorModel} from '../DataStorage/DataModels/AnimatorModel';
 
 @Component({
   selector: 'app-about',
@@ -13,26 +12,7 @@ import {AnimatorModel} from '../DataStorage/DataModels/AnimatorModel';
 })
 export class AboutComponent implements OnInit {
 
-  private doughnutChartLabels: Label[] = [' '];
-  private legend = false;
-  private doughnutChartData: MultiDataSet;
-  private chartOptions: ChartOptions = {
-    tooltips: {
-      enabled: false
-    },
-    cutoutPercentage: 86,
-    animation: {
-      duration: 3500
-    }
-  };
-  private colors: Color[] = [
-    {
-      backgroundColor: ['rgba(248,92,56,1)', 'rgba(255,202,160,1)']
-    }
-  ];
   chartDataset: ChartData[];
-  private columns = 4;
-  animators: AnimatorModel[];
 
   constructor(
     private statisticService: StatisticService,
@@ -41,7 +21,8 @@ export class AboutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chartDataset = this.statisticService.getEventsStats();
-    this.animators = this.animatorService.getAnimatorsWithPhotos();
+  }
+
+  loadData(): void {
   }
 }

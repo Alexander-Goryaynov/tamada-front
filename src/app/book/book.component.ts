@@ -3,6 +3,7 @@ import {UserService} from '../Services/user.service';
 import {AnimatorService} from '../Services/animator.service';
 import {OrderService} from '../Services/order.service';
 import {NewOrder} from '../Models/newOrder';
+import {AnimatorInfo} from '../Models/animatorInfo';
 
 @Component({
   selector: 'app-book',
@@ -12,6 +13,9 @@ import {NewOrder} from '../Models/newOrder';
 export class BookComponent implements OnInit {
 
   private order: NewOrder;
+  private animators: AnimatorInfo[];
+  private price: string;
+
 
   constructor(
     private userService: UserService,
@@ -23,23 +27,18 @@ export class BookComponent implements OnInit {
   }
 
   private onSubmit(): void {
-    // todo
   }
 
   private validateInfo(): boolean {
-    // todo
     return false;
   }
 
   private refreshAnimators(): void {
-    // todo
   }
 
   private refreshPrice(): void {
-    // todo
   }
 
   private displayAlert(message: string): void {
-    // todo
   }
 }

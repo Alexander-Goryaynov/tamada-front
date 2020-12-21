@@ -12,4 +12,12 @@ export class VerifyPhoneComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  verifyPhone(): void {
+
+  }
+
+  displayError(message: string): void {
+
+  }
+
 }

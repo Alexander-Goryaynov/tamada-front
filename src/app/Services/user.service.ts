@@ -22,54 +22,29 @@ export class UserService {
   }
 
   login(login: string, password: string): void {
-    let user = AppComponent.database.getUser(login);
-    if (user === undefined || user.password.localeCompare(password) !== 0) {
-      throw 'Неверные данные';
-    }
-    UserService.currentUser = login;
-    console.log('УСПЕШНО:' + UserService.currentUser);
   }
 
   logout(): void {
-    // todo
   }
 
   register(creds: RegistrationCredentials): void {
-    let newUser = new UserInfo();
-    newUser.name = creds.name;
-    newUser.password = creds.password;
-    newUser.phone = creds.phone;
-    newUser.orders = [];
-    try {
-      AppComponent.database.createUser(newUser);
-    } catch (e) {
-      throw e;
-    }
   }
 
-  verifyPhone(code: RegistrationCode): Observable<TokensModel> {
-    // todo
-    return new Observable<TokensModel>();
+  verifyPhone(code: RegistrationCode): boolean {
+    return false;
   }
 
-  update(creds: RegistrationCredentials): Observable<UserInfo> {
-    // todo
-    return new Observable<UserInfo>();
+  update(creds: RegistrationCredentials): void {
   }
 
   getUserInfo(): UserInfo {
-    let userViewModel = new UserInfo();
-    let user = AppComponent.database.getUser(UserService.currentUser);
-    userViewModel.name = user.name;
-    userViewModel.phone = user.phone;
-    return userViewModel;
+    return new UserInfo();
   }
 
   isAdmin(): boolean {
-    return (UserService.currentUser.localeCompare(adminPhone) === 0);
+    return false;
   }
 
   private displayError(): void {
-    // todo
   }
 }

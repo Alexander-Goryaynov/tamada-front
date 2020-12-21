@@ -20,7 +20,6 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-
   }
 
 }

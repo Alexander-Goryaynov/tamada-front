@@ -13,54 +13,26 @@ import {OrderModel} from '../DataStorage/DataModels/OrderModel';
 })
 export class OrderService {
 
-  private ordersApiUrl = `${apiUrl}/orders/v1`;
+  private ordersApiUrl: string;
 
   constructor(private http: HttpClient,
               private userService: UserService
               ) {
-    // todo
   }
 
   getOrdersList(): OrderListInfo[] {
-    let orders: OrderModel[];
-    if (!this.userService.isAdmin()) {
-      orders = AppComponent.database.getUserOrders(UserService.currentUser);
-    } else {
-      orders = AppComponent.database.getAllOrders();
-    }
-    let result: OrderListInfo[] = [];
-    for (let i = 0; i < orders.length; i++) {
-      let orderViewModel = new OrderListInfo();
-      let order = orders[i];
-      orderViewModel.address = order.address;
-      orderViewModel.date = (new Date(order.date)).toLocaleDateString();
-      orderViewModel.creationDate = (new Date(order.creationDate)).toLocaleDateString();
-      orderViewModel.event = order.eventType.toString();
-      orderViewModel.id = order.id;
-      orderViewModel.user = AppComponent.database.getUser(order.userPhone).name;
-      let animator = AppComponent.database.getAnimator(order.animatorId);
-      orderViewModel.animatorName = animator.name;
-      orderViewModel.price = `${animator.price} Руб.`;
-      orderViewModel.status = order.status.toString();
-      result.push(orderViewModel);
-    }
-    return result;
+    return [];
   }
 
-  createOrder(newOrder: NewOrder): Observable<any> {
-    // todo
-    return new Observable<any>();
+  createOrder(newOrder: NewOrder): void {
   }
 
   cancelOrder(orderId: number): void {
-    AppComponent.database.cancelOrder(orderId);
   }
 
   finishOrder(orderId: number): void {
-    AppComponent.database.finishOrder(orderId);
   }
 
   deleteOrder(orderId: number): void {
-    AppComponent.database.deleteOrder(orderId);
   }
 }

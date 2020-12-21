@@ -26,8 +26,12 @@ export class AnimatorsViewComponent implements OnInit {
   loadAnimators(): void {
   }
 
-  loadFioLabel(): string {
-    // todo
-    return '';
+  loadFioLabel(): void {
+  }
+
+  editAnimator(id: number): void {
+  }
+
+  displayAlert(message: string): void {
   }
 }

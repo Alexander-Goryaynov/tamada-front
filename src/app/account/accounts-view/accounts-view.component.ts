@@ -17,14 +17,11 @@ export class AccountsViewComponent implements OnInit {
   }
 
   private loadData(): void {
-    // todo
   }
 
   deleteAccount(id: number): void {
-    // todo
   }
 
   displayError(message: string): void {
-    // todo
   }
 }
