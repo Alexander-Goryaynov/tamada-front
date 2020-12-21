@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
 import {OrderListInfo} from '../Models/orderListInfo';
 import {UserService} from '../Services/user.service';
 import {OrderService} from '../Services/order.service';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
+import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-orders-view',
@@ -20,7 +21,8 @@ export class OrdersViewComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private router: Router
   ) {
   }
 
@@ -41,16 +43,19 @@ export class OrdersViewComponent implements OnInit {
   }
 
   cancelOrder(id: number): void {
+    this.orderService.cancelOrder(id);
     this.displayAlert(`Заказ №${id} успешно отменён`);
     this.loadOrders();
   }
 
   finishOrder(id: number): void {
+    this.orderService.finishOrder(id);
     this.displayAlert(`Заказ №${id} успешно завершён`);
     this.loadOrders();
   }
 
   deleteOrder(id: number): void {
+    this.orderService.deleteOrder(id);
     this.displayAlert(`Заказ №${id} успешно удалён`);
     this.loadOrders();
   }

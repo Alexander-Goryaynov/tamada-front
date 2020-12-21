@@ -52,8 +52,15 @@ export class OrderService {
     return new Observable<any>();
   }
 
-  cancelOrder(orderId: number): Observable<any> {
-    // todo
-    return new Observable<any>();
+  cancelOrder(orderId: number): void {
+    AppComponent.database.cancelOrder(orderId);
+  }
+
+  finishOrder(orderId: number): void {
+    AppComponent.database.finishOrder(orderId);
+  }
+
+  deleteOrder(orderId: number): void {
+    AppComponent.database.deleteOrder(orderId);
   }
 }
