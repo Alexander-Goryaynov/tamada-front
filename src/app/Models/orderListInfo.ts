@@ -10,4 +10,5 @@ export class OrderListInfo {
   user: string;
   event: string;
   price: string;
+  status: string;
 }

@@ -6,6 +6,7 @@ import {OrderListInfo} from '../Models/orderListInfo';
 import {NewOrder} from '../Models/newOrder';
 import {UserService} from './user.service';
 import {AppComponent} from '../app.component';
+import {OrderModel} from '../DataStorage/DataModels/OrderModel';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,12 @@ export class OrderService {
   }
 
   getOrdersList(): OrderListInfo[] {
-    let orders = AppComponent.database.getUserOrders(UserService.currentUser);
+    let orders: OrderModel[];
+    if (!this.userService.isAdmin()) {
+      orders = AppComponent.database.getUserOrders(UserService.currentUser);
+    } else {
+      orders = AppComponent.database.getAllOrders();
+    }
     let result: OrderListInfo[] = [];
     for (let i = 0; i < orders.length; i++) {
       let orderViewModel = new OrderListInfo();
@@ -35,6 +41,7 @@ export class OrderService {
       let animator = AppComponent.database.getAnimator(order.animatorId);
       orderViewModel.animatorName = animator.name;
       orderViewModel.price = `${animator.price} Руб.`;
+      orderViewModel.status = order.status.toString();
       result.push(orderViewModel);
     }
     return result;

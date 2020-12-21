@@ -20,6 +20,7 @@ import {CreateUpdateAnimatorComponent} from './account/animators-view/create-upd
 import {EventsComponent} from './events/events.component';
 import {VerifyPhoneComponent} from './verify-phone/verify-phone.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CommonModule} from '@angular/common';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ChartsModule,
     SweetAlert2Module.forRoot(),
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

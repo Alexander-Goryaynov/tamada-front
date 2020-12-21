@@ -7,13 +7,14 @@ import {RegistrationCode} from '../Models/registrationCode';
 import {TokensModel} from '../Models/tokensModel';
 import {UserInfo} from '../Models/userInfo';
 import {AppComponent} from '../app.component';
+import {adminPhone} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  static currentUser: string;
+  static currentUser: string = '';
 
   constructor(private http: HttpClient,
               private cookieService: CookieService) {
@@ -62,6 +63,10 @@ export class UserService {
     userViewModel.name = user.name;
     userViewModel.phone = user.phone;
     return userViewModel;
+  }
+
+  isAdmin(): boolean {
+    return (UserService.currentUser.localeCompare(adminPhone) === 0);
   }
 
   private displayError(): void {

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OrderListInfo} from '../Models/orderListInfo';
 import {UserService} from '../Services/user.service';
 import {OrderService} from '../Services/order.service';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-orders-view',
@@ -13,6 +14,9 @@ export class OrdersViewComponent implements OnInit {
   orders: OrderListInfo[];
   fio: string;
   phone: string;
+  isAdmin: boolean;
+  swalMessage: string = '';
+  swalVisibility: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -23,11 +27,11 @@ export class OrdersViewComponent implements OnInit {
   ngOnInit(): void {
     this.loadOrders();
     this.loadFioLabel();
+    this.isAdmin = this.userService.isAdmin();
   }
 
   private loadOrders(): void {
     this.orders = this.orderService.getOrdersList();
-    console.log(this.orders);
   }
 
   private loadFioLabel(): void {
@@ -36,16 +40,26 @@ export class OrdersViewComponent implements OnInit {
     this.fio = currentUser.name;
   }
 
-  private hasEditPermissions(): boolean {
-    // todo
-    return false;
+  cancelOrder(id: number): void {
+    this.displayAlert(`Заказ №${id} успешно отменён`);
+    this.loadOrders();
   }
 
-  private editOrder(id: number): void {
-
+  finishOrder(id: number): void {
+    this.displayAlert(`Заказ №${id} успешно завершён`);
+    this.loadOrders();
   }
 
-  private deleteOrder(id: number): void {
+  deleteOrder(id: number): void {
+    this.displayAlert(`Заказ №${id} успешно удалён`);
+    this.loadOrders();
+  }
 
+  private displayAlert(message: string): void {
+      this.swalMessage = message;
+      this.swalVisibility = true;
+      setTimeout(() => {
+      this.swalVisibility = false;
+    }, 2000);
   }
 }
