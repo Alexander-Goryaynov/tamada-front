@@ -10,9 +10,7 @@ import {UserService} from '../Services/user.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-  @Input()
-    // tslint:disable-next-line:ban-types
+  
   type: String = 'password';
   swalMessage = '';
   swalVisibility = false;
