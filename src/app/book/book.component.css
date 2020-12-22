@@ -88,7 +88,7 @@ h2 {
   clear: both;
 }
 
-/deep/ body {
+.main {
   font-size: 14px;
   line-height: 1.8;
   color: #fff;
@@ -97,9 +97,14 @@ h2 {
   font-family: Balsamiq Sans !important;
   margin: 0 !important;
 }
-
+.height{
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
 .main {
-  padding: 115px 0 !important;
+  margin-top: 115px !important;
+  margin-bottom: 115px !important;
+  margin-left: -50px !important;
   position: relative !important;
 }
 
@@ -119,7 +124,7 @@ h2 {
   -ms-border-radius: 10px;
 }
 
-/deep/ .booking-content {
+.booking-content {
   flex-wrap: wrap !important;
   -moz-flex-wrap: wrap !important;
   -webkit-flex-wrap: wrap !important;
@@ -157,7 +162,7 @@ h2 {
   -ms-border-radius: 24px;
 }
 
-/deep/ .active:after {
+.active:after {
   position: absolute;
   right: 17px;
   top: 50%;
@@ -188,7 +193,7 @@ form {
   padding-top: 21px;
 }
 
-/deep/ .form-label {
+.form-label {
   position: absolute;
   transition: 0.25s ease;
   -moz-transition: 0.25s ease;
@@ -204,7 +209,7 @@ form {
   color: #fff;
   margin-bottom: 10px;
 }
-/deep/ .form-price {
+.form-price {
   position: absolute;
   top: 23px;
   font-size: 11px;
@@ -223,7 +228,7 @@ input {
   -webkit-appearance: none;
 }
 
-/deep/ input:focus + .form-label, input:valid + .form-label {
+input:focus + .form-label, input:valid + .form-label {
   top: 1px;
   font-size: 11px;
   color: #edb77d;
@@ -241,7 +246,7 @@ input, select {
   padding: 4px 0;
 }
 
-/deep/ input:focus, select:focus {
+input:focus, select:focus {
   border-bottom: 1px solid #edb77d;
 }
 
@@ -265,23 +270,23 @@ input:-moz-placeholder {
   color: #bebebe;
 }
 
-/deep/ .submit {
-  width: auto;
+.submit {
+  width: auto !important;
   background: #edb77d !important;
-  color: #fff;
-  padding: 15px 43px;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
+  color: #fff !important;
+  padding: 15px 43px !important;
+  font-weight: bold !important;
+  border: none !important;
+  border-radius: 5px !important;
   -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -ms-border-radius: 5px;
-  cursor: pointer;
+  -webkit-border-radius: 5px !important;
+  -o-border-radius: 5px !important;
+  -ms-border-radius: 5px !important;
+  cursor: pointer !important;
 }
 
-/deep/ .submit:hover {
-  background: #e79e50;
+.submit:hover {
+  background: #e79e50 !important;
 }
 
 ul {
@@ -313,7 +318,7 @@ li.init {
   position: relative;
 }
 
-/deep/ li.init:after {
+li.init:after {
   position: absolute;
   right: 0;
   top: 50%;
@@ -344,7 +349,7 @@ select:focus > option:checked {
   background: #edb77d !important;
 }
 
-/deep/ .list-item {
+.list-item {
   position: absolute;
   width: 100%;
 }
