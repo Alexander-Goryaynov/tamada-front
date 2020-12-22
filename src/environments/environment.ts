@@ -5,8 +5,8 @@
 export const environment = {
   production: false
 };
-export const apiUrl = 'http://tamada-service:50040/';
-export const adminPhone = '+01234567890';
+export const apiUrl = 'http://35.228.190.235:50040/';
+export const adminPhone = '+79176188794';
 export const adminPassword = 'admin123!';
 
 /*
