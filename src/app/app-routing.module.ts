@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: 'accounts-view', component: AccountsViewComponent, data: {animation: 'AccountsView'}},
   {path: 'change-profile', component: ChangeProfileComponent, data: {animation: 'ChangeProfile'}},
   {path: 'orders-view', component: OrdersViewComponent, data: {animation: 'OrdersView'}},
-  {path: 'create-update-animator', component: CreateUpdateAnimatorComponent, data: {animation: 'CreateUpdateAnimator'}},
+  {path: 'create-update-animator/:id', component: CreateUpdateAnimatorComponent, data: {animation: 'CreateUpdateAnimator'}},
   {path: 'animators-view', component: AnimatorsViewComponent, data: {animation: 'AnimatorsView'}},
   {path: 'events', component: EventsComponent, data: {animation: 'Events'}},
   {path: 'verify-phone', component: VerifyPhoneComponent, data: {animation: 'VerifyPhone'}},

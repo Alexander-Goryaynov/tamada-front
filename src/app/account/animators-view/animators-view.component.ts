@@ -3,6 +3,8 @@ import {UserService} from '../../Services/user.service';
 import {AnimatorService} from '../../Services/animator.service';
 import {Animator} from '../../Models/animator';
 import {Role} from '../../Enums/role';
+import {AnimatorModel} from '../../DataStorage/DataModels/AnimatorModel';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-animators-view',
@@ -11,23 +13,37 @@ import {Role} from '../../Enums/role';
 })
 export class AnimatorsViewComponent implements OnInit {
 
-  private animators: Animator[];
+  animators: AnimatorModel[];
+  animatorNameToDelete: string;
   private role: Role;
   private fio: string;
 
   constructor(
-    userService: UserService,
-    animatorService: AnimatorService
+    private userService: UserService,
+    private animatorService: AnimatorService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.loadAnimators();
   }
 
   loadAnimators(): void {
+    this.animators =  this.animatorService.getAnimatorsWithPhotos();
   }
 
-  loadFioLabel(): string {
-    // todo
-    return '';
+  editAnimator(id: number): void {
+    setTimeout(() => {
+      this.router.navigateByUrl('/create-update-animator/' + id);
+    }, 250);
+  }
+
+  deleteAnimator(name: string): void {
+    let id = this.animators
+      .find(animator =>
+        animator.name.localeCompare(name) === 0).id;
+    console.log(id + name);
+    this.animatorService.deleteAnimator(id);
+    this.loadAnimators();
   }
 }

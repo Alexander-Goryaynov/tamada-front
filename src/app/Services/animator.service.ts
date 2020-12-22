@@ -37,4 +37,8 @@ export class AnimatorService {
     // todo
     return new Observable<any>();
   }
+
+  deleteAnimator(id: number): void {
+    AppComponent.database.deleteAnimator(id);
+  }
 }

@@ -148,6 +148,7 @@ export class Database {
   }
 
   deleteAnimator(id: number): void {
+    this.orders = this.orders.filter(ord => ord.animatorId !== id);
     this.animators = this.animators.filter(ani => ani.id !== id);
   }
 }

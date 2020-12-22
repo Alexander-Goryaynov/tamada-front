@@ -1,4 +1,15 @@
-<div class="lk" style="background-image: url('../../../assets/images/background_dream.jpg'); -moz-background-size: 100%; /* Firefox 3.6+ */
+<swal
+  #deleteSwal
+  title="Удалить аниматора?"
+  text="Все заказы, связанные с аниматором, будут удалены!"
+  icon="question"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  (confirm)="deleteAnimator(this.animatorNameToDelete)">
+</swal>
+<div class="lk"
+     style="background-image: url('../../../assets/images/background_dream.jpg');
+     -moz-background-size: 100%; /* Firefox 3.6+ */
       -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
       -o-background-size: 100%; /* Opera 9.6+ */
       background-size: 100%; /* Современные браузеры */
@@ -8,7 +19,8 @@
     Список аниматоров
     </p>
     <div class="col-md-12 text-center">
-    <button type="button" class="btn btn-success" style="background-color: #5cb85c !important; margin-top:20px; font-family: 'Lato', sans-serif">
+    <button type="button" class="btn btn-success" routerLink="/create-update-animator/-1"
+            style="background-color: #5cb85c !important; margin-top:20px; font-family: 'Lato', sans-serif">
       Создать
     </button>
     </div>
@@ -38,24 +50,29 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>Вечно молодой</td>
-          <td>Вечно пьяный</td>
-          <td>Чилль, а не Корунову хреначь</td>
-          <td>30</td>
-          <td>10000</td>
+        <tr *ngFor="let animator of animators">
+          <td>{{animator.name}}</td>
+          <td>{{animator.description}}</td>
+          <td>{{animator.motto}}</td>
+          <td>{{animator.age}}</td>
+          <td>{{animator.price}}</td>
           <td>
-            <button type="button" class="btn btn-success" style="background-color: #5cb85c !important;">
-              Обновить
+            <button type="button" (click)="editAnimator(animator.id)"
+                    class="btn btn-success" style="background-color: #5cb85c !important;">
+              Редактировать
             </button>
           </td>
           <td>
-            <button type="button" class="btn btn-danger" style="background-color: #d9534f !important;">Удалить</button>
+            <button type="button" class="btn btn-danger"
+                    (click)="this.animatorNameToDelete = animator.name; deleteSwal.fire();"
+                    style="background-color: #d9534f !important;">
+              Удалить
+            </button>
           </td>
         </tr>
         </tbody>
       </table>
-      <p class="empty" style="display: none">
+      <p *ngIf="animators.length === 0" class="empty">
         Здесь пока пусто. <i class="fa fa-star-half-empty"></i> Создайте аниматора!
       </p>
     </div>
