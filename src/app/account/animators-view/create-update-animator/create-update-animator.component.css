@@ -72,6 +72,10 @@ h1, h2, h3, h4, h5, h6, p, label{
   animation-timing-function: linear;
   text-align: center !important;
 }
+.common{
+  margin-top: 200px !important;
+}
+
 @keyframes clouds-moving {
   0% {
     background-position: 0%;
