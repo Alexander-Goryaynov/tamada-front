@@ -37,9 +37,9 @@ export class OrdersViewComponent implements OnInit {
   }
 
   private loadFioLabel(): void {
-    let currentUser = this.userService.getUserInfo();
-    this.phone = currentUser.phone;
-    this.fio = currentUser.name;
+    // let currentUser = this.userService.getUserInfo();
+    // this.phone = currentUser.phone;
+    // this.fio = currentUser.name;
   }
 
   cancelOrder(id: number): void {

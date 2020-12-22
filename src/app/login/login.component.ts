@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     try {
-      this.userService.login(this.login, this.password);
+      //this.userService.login(this.login, this.password);
       setTimeout(() => {
         this.router.navigateByUrl('/orders-view');
       }, 2000);

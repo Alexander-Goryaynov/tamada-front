@@ -24,7 +24,7 @@ export class OrderService {
   getOrdersList(): OrderListInfo[] {
     let orders: OrderModel[];
     if (!this.userService.isAdmin()) {
-      orders = AppComponent.database.getUserOrders(UserService.currentUser);
+      //orders = AppComponent.database.getUserOrders(UserService.currentUser);
     } else {
       orders = AppComponent.database.getAllOrders();
     }

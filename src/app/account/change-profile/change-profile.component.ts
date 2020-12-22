@@ -38,15 +38,16 @@ export class ChangeProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let user = this.userService.getUserInfo();
-    this.newUser.phone = user.phone;
-    this.newUser.name = user.name;
+    //let user = this.userService.getUserInfo();
+    // this.newUser.phone = user.phone;
+    // this.newUser.name = user.name;
     this.isAdmin = this.userService.isAdmin();
   }
 
   verifyOldPassword(password: string): boolean {
-    let oldPassword = this.userService.getUserInfo().password;
-    return oldPassword.localeCompare(this.newUser.password) === 0;
+    // let oldPassword = this.userService.getUserInfo().password;
+    // return oldPassword.localeCompare(this.newUser.password) === 0;
+    return false;
   }
 
   verifyCredentials(): boolean {

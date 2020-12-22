@@ -6,45 +6,44 @@ import {RegistrationCredentials} from '../Models/registrationCredentials';
 import {RegistrationCode} from '../Models/registrationCode';
 import {TokensModel} from '../Models/tokensModel';
 import {UserInfo} from '../Models/userInfo';
-import {AppComponent} from '../app.component';
-import {adminPhone} from '../../environments/environment';
+import {apiUrl} from '../../environments/environment';
+import {Role} from '../Enums/role';
+import {RegistrationResponse} from '../Models/registrationResponse';
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  static currentUser: string = '';
+  private tokenApiUrl = `${apiUrl}auth/v1/tokens`;
+  private registerApiUrl = `${apiUrl}auth/v1/register`;
+  private checkCodeApiUrl = `${apiUrl}auth/v1/check-code`;
+  static currentToken: string = '';
+  static currentRole: Role;
+  static currentPhoneVerification: RegistrationResponse;
 
   constructor(private http: HttpClient,
               private cookieService: CookieService) {
     // TODO
   }
 
-  login(login: string, password: string): void {
+  /*login(login: string, password: string): void {
     let user = AppComponent.database.getUser(login);
     if (user === undefined || user.password.localeCompare(password) !== 0) {
       throw 'Неверные данные';
     }
     UserService.currentUser = login;
     console.log('УСПЕШНО:' + UserService.currentUser);
-  }
+  }*/
 
   logout(): void {
     // todo
   }
 
-  register(creds: RegistrationCredentials): void {
-    let newUser = new UserInfo();
-    newUser.name = creds.name;
-    newUser.password = creds.password;
-    newUser.phone = creds.phone;
-    newUser.orders = [];
-    try {
-      AppComponent.database.createUser(newUser);
-    } catch (e) {
-      throw e;
-    }
+  register(creds: RegistrationCredentials): Observable<any> {
+    return this.http
+      .post<RegistrationResponse>(this.registerApiUrl, creds);
   }
 
   verifyPhone(code: RegistrationCode): Observable<TokensModel> {
@@ -57,16 +56,16 @@ export class UserService {
     return new Observable<UserInfo>();
   }
 
-  getUserInfo(): UserInfo {
+  /*getUserInfo(): UserInfo {
     let userViewModel = new UserInfo();
     let user = AppComponent.database.getUser(UserService.currentUser);
     userViewModel.name = user.name;
     userViewModel.phone = user.phone;
     return userViewModel;
-  }
+  }*/
 
   isAdmin(): boolean {
-    return (UserService.currentUser.localeCompare(adminPhone) === 0);
+    return (UserService.currentRole == Role.ADMIN);
   }
 
   private displayError(): void {

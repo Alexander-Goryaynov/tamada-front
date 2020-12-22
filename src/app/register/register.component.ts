@@ -10,7 +10,7 @@ import {UserService} from '../Services/user.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  
+
   type: String = 'password';
   swalMessage = '';
   swalVisibility = false;
@@ -33,8 +33,15 @@ export class RegisterComponent implements OnInit {
       return;
     }
     try {
-      this.userService.register(this.credentials);
-      this.displayAlert('Регистрация прошла успешно', 'success', true);
+      this.userService
+        .register(this.credentials)
+        .subscribe(result => {
+          if (result.status == '200') {
+            this.displayAlert('Регистрация прошла успешно', 'success', true);
+            console.log(result);
+          }
+        });
+
     } catch (e) {
       this.displayAlert(e, 'error', false);
     }
