@@ -2,14 +2,30 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/">ST<i class="fa fa-star"></i>R</a>
+      <a class="navbar-brand" routerLink="/">
+        T <i class="fa fa-star"></i>
+        M <i class="fa fa-star"></i>
+        D <i class="fa fa-star"></i>
+      </a>
     </div>
     <ul class="nav navbar-nav navbar-right d-sm-flex">
       <li class="active"><a routerLink="/">Домой</a></li>
       <li><a routerLink="/about">О нас</a></li>
+      <li><a routerLink="/main">Мероприятия</a></li>
+      <li><a routerLink="/book">Заказать</a></li>
       <li><a routerLink="/login">Войти</a></li>
-      <li><a href="#">Наши мероприятия</a></li>
-      <li><a href="#"><i class="fa fa-envelope"></i></a></li>
+
+      <li class="dropdown">
+        <button class="dropbtn">Маргарет Т.</button>
+        <div class="dropdown-content">
+          <a routerLink="/orders-view"><span style="color: red"> (Мои) </span>Заказы</a>
+          <a routerLink="/accounts-view">Аккаунты</a>
+          <a routerLink="/animators-view">Аниматоры</a>
+          <a routerLink="/change-profile">Изменить профиль</a>
+          <a routerLink="/login">Выйти</a>
+        </div>
+      </li>
     </ul>
   </div>
 </div>
+
