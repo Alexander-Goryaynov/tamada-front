@@ -31,10 +31,20 @@ export class AccountsViewComponent implements OnInit {
     let users = this.userService.getUsersList();
     users.forEach((user, i, users) => {
       if (user.phone.localeCompare(adminPhone) !== 0) {
-        let userOrdersCount = this.orderService.getOrdersList().length;
-        this.accounts.push(new AccountViewModel(user.phone, user.name, userOrdersCount));
+        this.accounts.push(new AccountViewModel(
+          user.phone,
+          user.name,
+          this.orderService.getUserOrdersCount(user.phone)
+          )
+        );
       }
     });
+    // sort ascending
+    this.accounts.sort(
+      (x, y) => {
+        return x.ordersCount - y.ordersCount;
+      }
+    );
   }
 
   deleteAccount(phone: string): void {
