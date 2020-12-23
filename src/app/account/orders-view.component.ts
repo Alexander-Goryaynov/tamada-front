@@ -34,6 +34,32 @@ export class OrdersViewComponent implements OnInit {
 
   private loadOrders(): void {
     this.orders = this.orderService.getOrdersList();
+    // сортировка сначала по убыванию статуса, потом по убыванию даты
+    this.orders.sort(
+      (x, y) => {
+        let xStatus;
+        let yStatus;
+        function getWeight(status: string): number {
+          switch (status) {
+            case 'Обработка':
+              return 3;
+            case 'Выполнен':
+              return 2;
+            case 'Отменён':
+              return 1;
+          }
+        }
+        xStatus = getWeight(x.status);
+        yStatus = getWeight(y.status);
+        if (yStatus > xStatus) {
+          return 1;
+        } else if (yStatus < xStatus) {
+          return -1;
+        } else if (yStatus === xStatus) {
+          return (y.creationDate >= x.creationDate) ? 1 : -1;
+        }
+      }
+    );
   }
 
   private loadFioLabel(): void {

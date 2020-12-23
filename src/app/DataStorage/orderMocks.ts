@@ -39,8 +39,8 @@ export class OrderMocks {
       1599589568000,
       1600280768000,
       EventType.BIRTHDAY,
-      OrderStatus.CANCELLED,
-      'ул. Сырных вопросов по правоведению, 50',
+      OrderStatus.PROCESSING,
+      'Нелинейное шоссе, 7',
       0,
       '+79539823146'
     )
