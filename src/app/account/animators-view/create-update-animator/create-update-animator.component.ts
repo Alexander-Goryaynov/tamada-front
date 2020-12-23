@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AnimatorService} from '../../../Services/animator.service';
 import {Animator} from '../../../Models/animator';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-update-animator',
@@ -11,7 +12,7 @@ export class CreateUpdateAnimatorComponent implements OnInit {
 
   private animator: Animator;
 
-  constructor(private service: AnimatorService) { }
+  constructor(private service: AnimatorService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -24,4 +25,9 @@ export class CreateUpdateAnimatorComponent implements OnInit {
     // todo
   }
 
+  goBack(): void {
+    setTimeout(() => {
+      this.router.navigateByUrl('/animators-view');
+    }, 1000);
+  }
 }

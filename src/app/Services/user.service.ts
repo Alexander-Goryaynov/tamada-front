@@ -52,9 +52,8 @@ export class UserService {
     return new Observable<TokensModel>();
   }
 
-  update(creds: RegistrationCredentials): Observable<UserInfo> {
-    // todo
-    return new Observable<UserInfo>();
+  update(newUser: UserInfo): void {
+    AppComponent.database.updateUser(newUser);
   }
 
   getUserInfo(): UserInfo {
@@ -62,6 +61,7 @@ export class UserService {
     let user = AppComponent.database.getUser(UserService.currentUser);
     userViewModel.name = user.name;
     userViewModel.phone = user.phone;
+    userViewModel.password = user.password;
     return userViewModel;
   }
 

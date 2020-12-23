@@ -1,5 +1,12 @@
 <div class="common">
 <div class="container border_around lk">
+  <swal
+    [title]="swalMessage"
+    [icon]="swalIcon"
+    [swalVisible]="swalVisibility"
+    showCancelButton=""
+    showConfirmButton="">
+  </swal>
   <h1 class="cloud-text cloud-title">Изменить профиль</h1>
   <hr>
   <div class="row">
@@ -8,36 +15,48 @@
         <div class="form-group">
           <label class="col-lg-3 control-label">ФИО:</label>
           <div class="col-lg-9">
-            <input class="form-control" type="text" value="Ноунейм">
+            <input class="form-control" type="text" name="name" [(ngModel)]="newUser.name" [readOnly]="isAdmin">
+          </div>
+        </div>
+        <div class="form-group" [hidden]="isAdmin">
+          <label class="col-md-3 control-label">Номер телефона:</label>
+          <div class="col-md-9">
+            <input class="form-control" type="text" name="phone"
+                   [(ngModel)]="newUser.phone" readonly>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Номер телефона:</label>
+          <label class="col-md-3 control-label">Старый пароль:</label>
           <div class="col-md-9">
-            <input class="form-control" type="text" value="+79081119090" readonly>
+            <input class="form-control" type="password" name="old-password" [(ngModel)]="oldPassword">
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Новый пароль:</label>
           <div class="col-md-9">
-            <input class="form-control" type="password" value="11111122333">
+            <input class="form-control" type="password" name="new-password"
+                   [(ngModel)]="newUser.password" (keyup)="checkRepeatedPassword()">
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Повторите пароль:</label>
           <div class="col-md-9">
-            <input class="form-control" type="password" value="11111122333">
+            <input class="form-control" type="password" name="repeat-password"
+                   [(ngModel)]="repeatedPassword" (keyup)="checkRepeatedPassword()">
+            <p class="unmatch" [hidden]="unmatchPasswordsHidden">Пароли не совпадают!</p>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-4 control-label" for="buttonSave"></label>
           <div class="col-md-5 center-block">
-            <button id="buttonSave" name="singlebutton" class="btn btn-primary center-block">
-              Сохранить!
+            <button id="buttonSave" name="singlebutton" (click)="onSubmit()"
+                    class="btn btn-primary center-block">
+              Сохранить
             </button>
           </div>
           <div id="blockbuttonCancel" class="col-md-1" style="margin-left:-100px">
-            <button id="buttonCancel" name="singlebutton" class="btn btn-primary center-block">
+            <button id="buttonCancel" name="singlebutton" class="btn btn-primary center-block"
+            (click)="goBack()">
               Вернуться
             </button>
           </div>

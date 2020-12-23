@@ -3,6 +3,7 @@ import {RegistrationCredentials} from '../../Models/registrationCredentials';
 import {UserModel} from '../../DataStorage/DataModels/UserModel';
 import {UserService} from '../../Services/user.service';
 import {Router} from '@angular/router';
+import {UserInfo} from '../../Models/userInfo';
 
 @Component({
   selector: 'app-change-profile',
@@ -11,45 +12,50 @@ import {Router} from '@angular/router';
 })
 export class ChangeProfileComponent implements OnInit {
 
-  type: string = 'password';
   swalMessage = '';
   swalVisibility = false;
   swalIcon = 'error';
-  newUser: UserModel;
-  repeatedPassword: string;
-  isAdmin: boolean;
+  newUser: UserInfo;
   unmatchPasswordsHidden = true;
+  repeatedPassword: string = '';
+  oldPassword: string = '';
+  isAdmin: boolean;
   specSymbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '?', '>', '<',
     '/', '\\', '.', ',', '[', ']', '{', '}', '~', ':', ';', '|', '№'];
-
-  /*
-у админа фио выключено и номер телефона скрыт
-добавить поле "повторите пароль"
-отображать sweetalert, если:
-	старый пароль неверный
-	новый пароль и повторный не совпадают
-	фио не из трёх слов (но не для админа)
-	пароль не содержит спецсимвола, цифры и короче 8 символов
-	всё прошло успешно*/
 
   constructor(
     private userService: UserService,
     private router: Router
-  ) { }
+  ) {
+    this.newUser = new UserInfo();
+  }
 
   ngOnInit(): void {
     let user = this.userService.getUserInfo();
+    console.log(user);
     this.newUser.phone = user.phone;
     this.newUser.name = user.name;
     this.isAdmin = this.userService.isAdmin();
   }
 
-  verifyOldPassword(password: string): boolean {
-    let oldPassword = this.userService.getUserInfo().password;
-    return oldPassword.localeCompare(this.newUser.password) === 0;
+  onSubmit(): void {
+    if (!this.verifyOldPassword(this.oldPassword)) {
+      this.displayAlert('Неверный пароль', 'error', false);
+      return;
+    }
+    if (!this.validateInput()) {
+      return;
+    }
+    this.userService.update(this.newUser);
+    this.displayAlert('Обновлено успешно', 'success', true);
   }
 
-  verifyCredentials(): boolean {
+  verifyOldPassword(password: string): boolean {
+    let oldPassword = this.userService.getUserInfo().password;
+    return oldPassword.localeCompare(password) === 0;
+  }
+
+  validateInput(): boolean {
     this.checkRepeatedPassword();
     if (!this.unmatchPasswordsHidden) {
       return false;
@@ -105,6 +111,7 @@ export class ChangeProfileComponent implements OnInit {
   }
 
   checkRepeatedPassword(): void {
+    console.log(this.repeatedPassword + this.newUser.password);
     this.unmatchPasswordsHidden = (this.repeatedPassword.localeCompare(this.newUser.password) === 0);
     if (this.repeatedPassword === '' && this.newUser.password === '') {
       this.unmatchPasswordsHidden = true;
@@ -130,16 +137,9 @@ export class ChangeProfileComponent implements OnInit {
     return false;
   }
 
-  changeKeys(keys: RegistrationCredentials): void {
-
-  }
-
-  validateInput(): string {
-    // todo
-    return '';
-  }
-
-  displayError(message: string): void {
-
+  goBack(): void {
+    setTimeout(() => {
+      this.router.navigateByUrl('/orders-view');
+    }, 1000);
   }
 }
