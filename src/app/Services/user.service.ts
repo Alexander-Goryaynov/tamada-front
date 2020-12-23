@@ -8,6 +8,7 @@ import {TokensModel} from '../Models/tokensModel';
 import {UserInfo} from '../Models/userInfo';
 import {AppComponent} from '../app.component';
 import {adminPhone} from '../../environments/environment';
+import {UserModel} from '../DataStorage/DataModels/UserModel';
 
 @Injectable({
   providedIn: 'root'
@@ -65,8 +66,16 @@ export class UserService {
     return userViewModel;
   }
 
+  getUsersList(): UserModel[] {
+    return AppComponent.database.getAllUsers();
+  }
+
   isAdmin(): boolean {
     return (UserService.currentUser.localeCompare(adminPhone) === 0);
+  }
+
+  deleteUser(phone: string): void {
+    AppComponent.database.deleteUser(phone);
   }
 
   private displayError(): void {

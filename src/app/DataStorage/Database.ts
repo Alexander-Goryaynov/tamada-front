@@ -57,6 +57,7 @@ export class Database {
   }
 
   deleteUser(phone: string): void {
+    this.orders = this.orders.filter(order => order.userPhone.localeCompare(phone) !== 0);
     this.users = this.users.filter(user => user.phone.localeCompare(phone) !== 0);
   }
 
