@@ -16,11 +16,18 @@ export class AnimatorService {
   private schedulesApiUrl = `${this.animatorsApiUrl}/schedules`;
 
   constructor(private http: HttpClient) {
-    // todo
   }
 
   getAnimatorsWithPhotos(): AnimatorModel[] {
     return AppComponent.database.getAllAnimators();
+  }
+
+  getAnimatorById(id: number): Animator {
+    let animator = AppComponent.database.getAnimator(id);
+    if (animator === undefined) {
+      throw 'Аниматор не найден';
+    }
+    return animator;
   }
 
   getAnimatorsWithSchedules(): Observable<AnimatorSchedule> {
@@ -28,14 +35,32 @@ export class AnimatorService {
     return new Observable<AnimatorSchedule>();
   }
 
-  updateAnimator(animator: Animator): Observable<any>{
-    // todo
-    return new Observable<any>();
+  updateAnimator(animator: Animator): void {
+    AppComponent.database.updateAnimator(
+      new AnimatorModel(
+        animator.id,
+        animator.name,
+        animator.age,
+        animator.description,
+        animator.motto,
+        animator.price,
+        animator.image
+      )
+    );
   }
 
-  createAnimator(animator: Animator): Observable<any> {
-    // todo
-    return new Observable<any>();
+  createAnimator(animator: Animator): void {
+    AppComponent.database.createAnimator(
+      new AnimatorModel(
+        0,
+        animator.name,
+        animator.age,
+        animator.description,
+        animator.motto,
+        animator.price,
+        animator.image
+      )
+    );
   }
 
   deleteAnimator(id: number): void {

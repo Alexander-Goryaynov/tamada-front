@@ -4,5 +4,6 @@ export class Animator {
   age: number;
   description: string;
   motto: string;
+  price: number;
   image: string;
 }
