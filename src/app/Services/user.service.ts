@@ -47,16 +47,26 @@ export class UserService {
           (result) => {
             if (result) {
               console.log(result);
-              this.cookieService.set('accessToken', result.accessToken);
-              this.cookieService.set('refreshToken', result.refreshToken);
-              let decodedJwt: any = jwt_decode(result.accessToken);
-              this.cookieService.set('userPhone', decodedJwt.sub);
-              this.cookieService.set('role', decodedJwt.role);
+              this.cookieService.set('accessToken', result.access);
+              this.cookieService.set('refreshToken', result.refresh);
+              let parsedJwt: any = this.parseJwt(result.access);
+              this.cookieService.set('userPhone', parsedJwt.sub);
+              this.cookieService.set('role', parsedJwt.role);
             }
           }
         )
       );
   }
+
+  parseJwt (token) {
+    console.log(token);
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  };
 
   logout(): void {
     this.cookieService.delete('accessToken');

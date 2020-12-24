@@ -1,4 +1,4 @@
 export class TokensModel {
-  accessToken: string;
-  refreshToken: string;
+  access: string;
+  refresh: string;
 }
