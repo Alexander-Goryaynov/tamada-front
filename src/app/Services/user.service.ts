@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {Observable} from 'rxjs';
@@ -9,12 +9,15 @@ import {UserInfo} from '../Models/userInfo';
 import {AppComponent} from '../app.component';
 import {adminPhone} from '../../environments/environment';
 import {UserModel} from '../DataStorage/DataModels/UserModel';
+import {NavbarRole} from '../navbar/NavbarRole';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+  @Output() loggedInNameEventEmitter: EventEmitter<string> = new EventEmitter();
+  @Output() loggedInRoleEventEmitter: EventEmitter<NavbarRole> = new EventEmitter();
   static currentUser: string = '';
 
   constructor(private http: HttpClient,
@@ -28,11 +31,20 @@ export class UserService {
       throw 'Неверные данные';
     }
     UserService.currentUser = login;
-    console.log('УСПЕШНО:' + UserService.currentUser);
+    if (login.localeCompare(adminPhone) === 0) {
+      this.loggedInRoleEventEmitter.emit(NavbarRole.ADMIN);
+      this.loggedInNameEventEmitter.emit('Администратор');
+    } else {
+      this.loggedInRoleEventEmitter.emit(NavbarRole.CUSTOMER);
+      this.loggedInNameEventEmitter.emit(user.name);
+    }
+
   }
 
   logout(): void {
-    // todo
+    UserService.currentUser = '';
+    this.loggedInRoleEventEmitter.emit(NavbarRole.UNAUTHORIZED);
+    this.loggedInNameEventEmitter.emit('');
   }
 
   register(creds: RegistrationCredentials): void {

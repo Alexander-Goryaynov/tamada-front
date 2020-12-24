@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       this.userService.login(this.login, this.password);
       setTimeout(() => {
         this.router.navigateByUrl('/orders-view');
-      }, 2000);
+      }, 1000);
     } catch (e) {
       this.displayError(e);
     }

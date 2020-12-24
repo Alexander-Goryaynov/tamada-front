@@ -10,7 +10,7 @@ import {UserService} from '../Services/user.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  
+
   type: String = 'password';
   swalMessage = '';
   swalVisibility = false;
@@ -78,11 +78,11 @@ export class RegisterComponent implements OnInit {
     if (doRedirect) {
       setTimeout(() => {
         this.router.navigateByUrl('/login');
-      }, 2000);
+      }, 1000);
     } else {
       setTimeout(() => {
         this.swalVisibility = false;
-      }, 2000);
+      }, 1000);
     }
   }
 
