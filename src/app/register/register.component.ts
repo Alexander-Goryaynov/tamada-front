@@ -3,7 +3,6 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import {RegistrationCredentials} from '../Models/registrationCredentials';
 import {Router} from '@angular/router';
 import {UserService} from '../Services/user.service';
-import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +21,8 @@ export class RegisterComponent implements OnInit {
   specSymbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '?', '>', '<',
     '/', '\\', '.', ',', '[', ']', '{', '}', '~', ':', ';', '|', '№'];
 
-  constructor(private router: Router, private userService: UserService) {  }
+  constructor(private router: Router, private userService: UserService) {
+  }
 
   ngOnInit(): void {
     this.credentials = new RegistrationCredentials();
@@ -32,15 +32,12 @@ export class RegisterComponent implements OnInit {
     if (!this.verifyCredentials()) {
       return;
     }
-    this.userService
-      .register(this.credentials)
-      .subscribe(result => {
-        this.displayAlert('Регистрация прошла успешно', 'success', true);
-        console.log(result);
-      }, (error: HttpErrorResponse) => {
-        this.displayAlert(`${error.message} ${error.status} ${error.error}`,
-          'error', false);
-      });
+    try {
+      this.userService.register(this.credentials);
+      this.displayAlert('Регистрация прошла успешно', 'success', true);
+    } catch (e) {
+      this.displayAlert(e, 'error', false);
+    }
   }
 
   togglePasswordHide(): void {

@@ -31,9 +31,9 @@ export class ChangeProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //let user = this.userService.getUserInfo();
-    // this.newUser.phone = user.phone;
-    // this.newUser.name = user.name;
+    let user = this.userService.getUserInfo();
+    this.newUser.phone = user.phone;
+    this.newUser.name = user.name;
     this.isAdmin = this.userService.isAdmin();
   }
 

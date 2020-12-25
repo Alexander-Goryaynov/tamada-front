@@ -32,7 +32,7 @@ export class AboutComponent implements OnInit {
   ];
   chartDataset: ChartData[];
   private columns = 4;
-  animators: AnimatorModel[] = [];
+  animators: AnimatorModel[];
 
   constructor(
     private statisticService: StatisticService,
@@ -42,22 +42,6 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
     this.chartDataset = this.statisticService.getEventsStats();
-    this.animatorService
-      .getAnimatorsWithPhotos()
-      .subscribe(result => {
-        for (let i = 0; i < result.animators.length; i++) {
-          let animator = result.animators[i];
-          this.animators.push(new AnimatorModel(
-            animator.id,
-            animator.name,
-            animator.age,
-            animator.description,
-            animator.motto,
-            animator.price,
-            animator.image
-          ));
-        }
-      });
-    this.animatorService.getAnimatorsWithSchedules();
+    this.animators = this.animatorService.getAnimatorsWithPhotos();
   }
 }
