@@ -78,11 +78,11 @@ export class RegisterComponent implements OnInit {
     if (doRedirect) {
       setTimeout(() => {
         this.router.navigateByUrl('/login');
-      }, 1000);
+      }, 2000);
     } else {
       setTimeout(() => {
         this.swalVisibility = false;
-      }, 1000);
+      }, 2000);
     }
   }
 

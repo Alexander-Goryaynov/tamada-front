@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {apiUrl} from '../../environments/environment';
-import {Observable} from 'rxjs';
 import {Animator} from '../Models/animator';
-import {AnimatorSchedule} from '../Models/animatorSchedule';
+import {AnimatorsSchedule} from '../Models/animatorsSchedule';
 import {AnimatorModel} from '../DataStorage/DataModels/AnimatorModel';
 import {AppComponent} from '../app.component';
 
@@ -30,9 +29,23 @@ export class AnimatorService {
     return animator;
   }
 
-  getAnimatorsWithSchedules(): Observable<AnimatorSchedule> {
-    // todo
-    return new Observable<AnimatorSchedule>();
+  getAnimatorsWithSchedules(): AnimatorsSchedule {
+    let result = new AnimatorsSchedule();
+    result.animators = [];
+    let ordersList = AppComponent.database.getAllOrders();
+    let animatorsList = AppComponent.database.getAllAnimators();
+    for (let i = 0; i < animatorsList.length; i++) {
+      let animator = animatorsList[i];
+      let dates = [];
+      for (let j = 0; j < ordersList.length; j++) {
+        let order = ordersList[j];
+        if (order.animatorId === animator.id) {
+          dates.push(new Date(order.date).toLocaleDateString());
+        }
+      }
+      result.animators.push({id: animator.id, name: animator.name, dates: dates});
+    }
+    return result;
   }
 
   updateAnimator(animator: Animator): void {

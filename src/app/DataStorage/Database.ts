@@ -74,7 +74,7 @@ export class Database {
   }
 
   createOrder(newOrder: NewOrder, userPhone: string): void {
-    let newId = 0;
+    let newId: number = 0;
     for (let i = 0; i < this.orders.length; i++) {
       let curOrd = this.orders[i];
       if (curOrd.id >= newId) {
@@ -85,12 +85,13 @@ export class Database {
       newId,
       newOrder.date,
       Date.now(),
-      EventType[newOrder.event],
+      newOrder.event,
       OrderStatus.PROCESSING,
       newOrder.address,
       newOrder.animatorId,
       userPhone
     );
+    this.orders.push(order);
   }
 
   finishOrder(id: number) {

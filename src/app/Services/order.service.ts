@@ -54,9 +54,10 @@ export class OrderService {
       .length;
   }
 
-  createOrder(newOrder: NewOrder): Observable<any> {
-    // todo
-    return new Observable<any>();
+  createOrder(newOrder: NewOrder): void {
+    let userPhone = UserService.currentUser;
+    AppComponent.database.createOrder(newOrder, userPhone);
+    console.log(AppComponent.database.getAllOrders());
   }
 
   cancelOrder(orderId: number): void {
