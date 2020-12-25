@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {Role} from '../Enums/role';
-import {JwtResponse} from '../Models/jwtResponse';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../Services/user.service';
 import {Router} from '@angular/router';
+import {NavbarRole} from './NavbarRole';
 
 @Component({
   selector: 'app-navbar',
@@ -11,16 +10,45 @@ import {Router} from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  private role: Role;
-  private user: JwtResponse;
+  role: NavbarRole = NavbarRole.UNAUTHORIZED;
+  userName: string;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) {
+    userService.loggedInRoleEventEmitter.subscribe(
+      role => {
+        this.setRole(role);
+      }
+    );
+    userService.loggedInNameEventEmitter.subscribe(
+      name => {
+        this.setUserName(name);
+      }
+    );
+  }
 
   ngOnInit(): void {
   }
 
-  logout(): void {
+  setRole(role: NavbarRole) {
+    this.role = role;
+  }
 
+  setUserName(fio: string) {
+    if (this.role === NavbarRole.ADMIN) {
+      this.userName = fio;
+    } else if (this.role === NavbarRole.CUSTOMER) {
+      // Михаил К.
+      this.userName = fio.split(' ')[1] +
+        ' ' + fio.split(' ')[0][0] + '.';
+    }
+  }
+
+  logout(): void {
+    this.userService.logout();
+    setTimeout(
+      () => {
+        this.router.navigateByUrl('/main');
+      }, 1000);
   }
 
 }

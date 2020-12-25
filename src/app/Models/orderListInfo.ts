@@ -1,6 +1,3 @@
-import {AnimatorInfo} from './animatorInfo';
-import {OrderUserInfo} from './orderUserInfo';
-
 export class OrderListInfo {
   id: number;
   creationDate: string;

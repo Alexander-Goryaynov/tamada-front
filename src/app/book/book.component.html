@@ -1,4 +1,10 @@
 <div class="height" style="background: #ffd9b0;">
+  <swal
+    [title]="swalMessage"
+    [icon]="swalIcon"
+    [swalVisible]="swalVisibility"
+    showCancelButton=""
+    showConfirmButton=""></swal>
 <div class="main" style="background: #ffd9b0;">
   <div class="container-fluid" style="background: #ffd9b0;">
   <div class="container">
@@ -12,40 +18,41 @@
           <div class="form-group">
             <div class="select-list">
               <p class="label-book">Вид мероприятия</p>
-              <select name="time" id="time" required>
-                <option value="">Выпускной</option>
-                <option value="">День Рождения</option>
+              <select name="time" id="time" required (change)="onEventSelect($event)">
+                <option disabled selected>Выберите мероприятие</option>
+                <option *ngFor="let event of eventsList" value="{{event}}">{{event}}</option>
               </select>
             </div>
           </div>
           <div class="form-group form-input" style="margin-top: -50px !important;">
-            <input type="text" name="address" id="address" value="" required/>
+            <input type="text" name="address" id="address" [(ngModel)]="order.address" required/>
             <label for="address" class="form-label">Адрес мероприятия</label>
-          </div>
-          <div class="form-group form-input" >
-            <input type="number" name="phone" id="phone" value="" required />
-            <label for="phone" class="form-label">Ваш номер телефона</label>
           </div>
 
           <div class="form-group" style="margin-top: 30px !important; margin-bottom: 0px !important;">
             <div class="select-list">
               <p class="label-book">Аниматоры</p>
-              <select name="food" id="food" required>
-                <option value="seasonalfish">Алексей</option>
-                <option value="assortedmushrooms">Михаил</option>
+              <select name="animator" id="animator" required (change)="onAnimatorSelect($event)">
+                <option disabled selected>Выберите аниматора</option>
+                <option *ngFor="let animator of schedule.animators"
+                        value="{{animator.id}}">{{animator.name}}</option>
               </select>
             </div>
           </div>
-          <div class="form-group form-input" style="margin-top: -30px !important; margin-bottom: 0px !important;">
-            <input type="text" name="promocode" id="promocode" value="" required/>
-            <label for="promocode" class="form-label">Дата</label>
+          <div class="form-group form-input label-book"
+               style="margin-top: -30px !important; margin-bottom: 0px !important;">
+            <label for="event-date" class="label-book">Дата</label>
+            <input type="date" name="event-date" [(ngModel)]="pickedDate" id="event-date" (change)="onDatePick()"
+                   value="" required/>
+            <p style="color: red">{{wrongDateMessage}}</p>
           </div>
           <div class="form-group form-input">
             <label for="price" class="label-book">Цена</label>
-            <input type="text" name="price" id="price" value="" readonly/>
+            <input type="text" name="price" [(ngModel)]="price" id="price" readonly/>
           </div>
           <div class="form-submit">
-            <input type="submit" value="Забронировать" class="submit" id="submit" name="submit" />
+            <input type="submit" value="Забронировать" class="submit"
+                   (click)="onSubmit()" id="submit" name="submit" />
           </div>
         </form>
       </div>

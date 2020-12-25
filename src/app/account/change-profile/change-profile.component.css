@@ -76,6 +76,12 @@ h1, h2, h3, h4, h5, h6, p, label{
   animation-timing-function: linear;
   text-align: center !important;
 }
+
+p.unmatch {
+  margin-bottom: 10px;
+  color: red;
+}
+
 @keyframes clouds-moving {
   0% {
     background-position: 0%;

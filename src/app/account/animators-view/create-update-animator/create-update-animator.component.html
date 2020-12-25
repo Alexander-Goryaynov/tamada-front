@@ -1,13 +1,17 @@
 <div class="common">
   <div class="container border_around lk">
-    <h1 class="cloud-text cloud-title">Добавить (ОБНОВИТЬ!!!)аниматора</h1>
+    <h1 *ngIf="animator.id !== -1" class="cloud-text cloud-title">Обновить аниматора</h1>
+    <h1 *ngIf="animator.id === -1" class="cloud-text cloud-title">Добавить аниматора</h1>
     <hr>
     <div class="row">
       <div class="col-md-3">
         <div class="text-center">
-          <img src="../../../../assets/img/pic2.jpg" class="avatar img-circle" alt="avatar">
-          <h6>Добавьте фото</h6>
-          <input type="file" class="form-control-file">
+          <img *ngIf="animator.image !== undefined"
+               src="{{animator.image}}" class="avatar img-circle" alt="avatar"
+                width="200px" height="200px">
+          <h6 *ngIf="animator.id === -1">Добавьте фото</h6>
+          <h6 *ngIf="animator.id !== -1">Загрузите другое фото</h6>
+          <input type="file" class="form-control-file" accept="image/*" (change)="onImageChange($event)">
         </div>
       </div>
       <div class="col-md-9 personal-info">
@@ -15,43 +19,49 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">ФИО:</label>
             <div class="col-lg-9">
-              <input class="form-control" type="text" value="Гендальф Белый">
+              <input class="form-control" type="text" name="fio"
+                     [(ngModel)]="animator.name">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Описание:</label>
             <div class="col-lg-9">
-              <input class="form-control" type="text" value="В дела мудрецов носа не суй — голову потеряешь.">
+              <input class="form-control" type="text" name="descripition"
+                     [(ngModel)]="animator.description">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Девиз:</label>
             <div class="col-lg-9">
-              <input class="form-control" type="text" value="Ты не пройдешь">
+              <input class="form-control" type="text" name="motto"
+                     [(ngModel)]="animator.motto">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Возраст:</label>
             <div class="col-lg-9">
-              <input class="form-control" type="text" value="300 людских жизней">
+              <input class="form-control" type="number" name="age"
+                     [(ngModel)]="animator.age">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Цена в рублях:</label>
             <div class="col-lg-9">
-              <input class="form-control" type="text" value="У вас нет столько монет">
+              <input class="form-control" type="number" name="price"
+                     [(ngModel)]="animator.price">
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-4 control-label" for="buttonSave"></label>
             <div class="col-md-5 center-block">
-              <button id="buttonSave" name="singlebutton" class="btn btn-primary center-block">
-                Сохранить!
+              <button id="buttonSave" name="singlebutton"
+                      class="btn btn-primary center-block" (click)="onSubmit()">
+                Сохранить
               </button>
             </div>
             <div id="blockbuttonCancel" class="col-md-1" style="margin-left:-100px">
               <button id="buttonCancel" name="singlebutton" class="btn btn-primary center-block"
-              routerLink="/animators-view">
+              (click)="goBack()">
                 Вернуться
               </button>
             </div>

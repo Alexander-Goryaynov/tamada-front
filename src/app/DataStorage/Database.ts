@@ -3,7 +3,6 @@ import {OrderModel} from './DataModels/OrderModel';
 import {UserModel} from './DataModels/UserModel';
 import {UserInfo} from '../Models/userInfo';
 import {NewOrder} from '../Models/newOrder';
-import {EventType} from './Enums/EventType';
 import {OrderStatus} from './Enums/OrderStatus';
 import {AnimatorMocks} from './animatorMocks';
 import {UserMocks} from './userMocks';
@@ -57,6 +56,7 @@ export class Database {
   }
 
   deleteUser(phone: string): void {
+    this.orders = this.orders.filter(order => order.userPhone.localeCompare(phone) !== 0);
     this.users = this.users.filter(user => user.phone.localeCompare(phone) !== 0);
   }
 
@@ -73,7 +73,7 @@ export class Database {
   }
 
   createOrder(newOrder: NewOrder, userPhone: string): void {
-    let newId = 0;
+    let newId: number = 0;
     for (let i = 0; i < this.orders.length; i++) {
       let curOrd = this.orders[i];
       if (curOrd.id >= newId) {
@@ -84,12 +84,13 @@ export class Database {
       newId,
       newOrder.date,
       Date.now(),
-      EventType[newOrder.event],
+      newOrder.event,
       OrderStatus.PROCESSING,
       newOrder.address,
       newOrder.animatorId,
       userPhone
     );
+    this.orders.push(order);
   }
 
   finishOrder(id: number) {

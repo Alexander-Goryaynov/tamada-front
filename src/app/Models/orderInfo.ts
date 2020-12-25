@@ -1,7 +1,8 @@
-import {AnimatorInfo} from './animatorInfo';
-
 export class OrderInfo {
   date: number;
-  animator: AnimatorInfo;
+  animator: {
+    id: number;
+    name: string;
+  }
   event: string;
 }

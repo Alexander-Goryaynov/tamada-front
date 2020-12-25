@@ -5,6 +5,7 @@ import {Animator} from '../../Models/animator';
 import {Role} from '../../Enums/role';
 import {AnimatorModel} from '../../DataStorage/DataModels/AnimatorModel';
 import {Router} from '@angular/router';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-animators-view',
@@ -42,8 +43,8 @@ export class AnimatorsViewComponent implements OnInit {
     let id = this.animators
       .find(animator =>
         animator.name.localeCompare(name) === 0).id;
-    console.log(id + name);
     this.animatorService.deleteAnimator(id);
+    swal.fire(`Аниматор ${name} успешно удалён`);
     this.loadAnimators();
   }
 }

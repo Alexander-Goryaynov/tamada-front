@@ -6,6 +6,10 @@ display-flex, .booking-content {
   display: -webkit-flex;
 }
 
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
 /* @extend list-type-ulli; */
 list-type-ulli, ul {
   list-style-type: none;

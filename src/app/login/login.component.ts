@@ -35,19 +35,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.userService
-      .login(this.login, this.password)
-      .subscribe(
-        result => {
-          setTimeout(() => {
-            this.router.navigateByUrl('/orders-view');
-          }, 2000);
-        },
-        (error: HttpErrorResponse) => {
-          this.displayError(`${error.message} ${error.status} ${error.error}`);
-        }
-      );
-
+    try {
+      this.userService.login(this.login, this.password);
+      setTimeout(() => {
+        this.router.navigateByUrl('/orders-view');
+      }, 1000);
+    } catch (e) {
+      this.displayError(e);
+    }
   }
 
   displayError(message: string): void {

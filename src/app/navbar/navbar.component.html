@@ -1,31 +1,30 @@
 <!-- navbar - это хедер; inverse - цвет, fixed-top - фиксированное положение -->
 <div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/">
-        T <i class="fa fa-star"></i>
-        M <i class="fa fa-star"></i>
-        D <i class="fa fa-star"></i>
-      </a>
-    </div>
-    <ul class="nav navbar-nav navbar-right d-sm-flex">
-      <li class="active"><a routerLink="/">Домой</a></li>
-      <li><a routerLink="/about">О нас</a></li>
-      <li><a routerLink="/events">Наши мероприятия</a></li>
-      <li><a routerLink="/book">Заказать</a></li>
-      <li><a routerLink="/login">Войти</a></li>
-
-      <li class="dropdown">
-        <button class="dropbtn">Маргарет Т.</button>
-        <div class="dropdown-content">
-          <a routerLink="/orders-view"><span style="color: red"> (Мои) </span>Заказы</a>
-          <a routerLink="/accounts-view">Аккаунты</a>
-          <a routerLink="/animators-view">Аниматоры</a>
-          <a routerLink="/change-profile">Изменить профиль</a>
-          <a routerLink="/login">Выйти</a>
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/">
+                T <i class="fa fa-star"></i>
+                M <i class="fa fa-star"></i>
+                D <i class="fa fa-star"></i>
+            </a>
         </div>
-      </li>
-    </ul>
-  </div>
+        <ul class="nav navbar-nav navbar-right d-sm-flex">
+            <li class="active"><a routerLink="/">Домой</a></li>
+            <li><a routerLink="/about">О нас</a></li>
+            <li><a routerLink="/events">Наши мероприятия</a></li>
+            <li *ngIf="role === 1"><a routerLink="/book">Заказать</a></li>
+            <li *ngIf="role === 0"><a routerLink="/login">Войти</a></li>
+            <li *ngIf="role !== 0" class="dropdown">
+                <button class="dropbtn">{{userName}}</button>
+                <div class="dropdown-content">
+                    <a routerLink="/orders-view" *ngIf="role === 2">Заказы</a>
+                    <a routerLink="/orders-view" *ngIf="role === 1">Мои заказы</a>
+                    <a routerLink="/accounts-view" *ngIf="role === 2">Аккаунты</a>
+                    <a routerLink="/animators-view" *ngIf="role === 2">Аниматоры</a>
+                    <a routerLink="/change-profile">Изменить профиль</a>
+                    <a (click)="logout()">Выйти</a>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
-

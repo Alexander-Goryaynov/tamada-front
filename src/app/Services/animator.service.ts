@@ -1,48 +1,79 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {apiUrl} from '../../environments/environment';
-import {Observable} from 'rxjs';
 import {Animator} from '../Models/animator';
-import {AnimatorSchedule} from '../Models/animatorSchedule';
+import {AnimatorsSchedule} from '../Models/animatorsSchedule';
 import {AnimatorModel} from '../DataStorage/DataModels/AnimatorModel';
 import {AppComponent} from '../app.component';
-import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnimatorService {
 
-  private animatorsApiUrl = `${apiUrl}animators/v1`;
+  private animatorsApiUrl = `${apiUrl}/animators/v1`;
   private schedulesApiUrl = `${this.animatorsApiUrl}/schedules`;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
-    // todo
+  constructor(private http: HttpClient) {
   }
 
-  getAnimatorsWithPhotos(): Observable<Animator> {
-    let token = this.cookieService.get('accessToken');
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', 'Bearer ' + token);
-    return this.http.get<Animator>(this.animatorsApiUrl, {headers: headers});
+  getAnimatorsWithPhotos(): AnimatorModel[] {
+    return AppComponent.database.getAllAnimators();
   }
 
-  getAnimatorsWithSchedules(): void {
-    let token = this.cookieService.get('accessToken');
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', 'Bearer ' + token);
-    this.http.get<Animator>(this.schedulesApiUrl, {headers: headers})
-      .subscribe(result => {console.log(result)});
+  getAnimatorById(id: number): Animator {
+    let animator = AppComponent.database.getAnimator(id);
+    if (animator === undefined) {
+      throw 'Аниматор не найден';
+    }
+    return animator;
   }
 
-  updateAnimator(animator: Animator): Observable<any>{
-    // todo
-    return new Observable<any>();
+  getAnimatorsWithSchedules(): AnimatorsSchedule {
+    let result = new AnimatorsSchedule();
+    result.animators = [];
+    let ordersList = AppComponent.database.getAllOrders();
+    let animatorsList = AppComponent.database.getAllAnimators();
+    for (let i = 0; i < animatorsList.length; i++) {
+      let animator = animatorsList[i];
+      let dates = [];
+      for (let j = 0; j < ordersList.length; j++) {
+        let order = ordersList[j];
+        if (order.animatorId === animator.id) {
+          dates.push(new Date(order.date).toLocaleDateString());
+        }
+      }
+      result.animators.push({id: animator.id, name: animator.name, dates: dates});
+    }
+    return result;
   }
 
-  createAnimator(animator: Animator): Observable<any> {
-    // todo
-    return new Observable<any>();
+  updateAnimator(animator: Animator): void {
+    AppComponent.database.updateAnimator(
+      new AnimatorModel(
+        animator.id,
+        animator.name,
+        animator.age,
+        animator.description,
+        animator.motto,
+        animator.price,
+        animator.image
+      )
+    );
+  }
+
+  createAnimator(animator: Animator): void {
+    AppComponent.database.createAnimator(
+      new AnimatorModel(
+        0,
+        animator.name,
+        animator.age,
+        animator.description,
+        animator.motto,
+        animator.price,
+        animator.image
+      )
+    );
   }
 
   deleteAnimator(id: number): void {

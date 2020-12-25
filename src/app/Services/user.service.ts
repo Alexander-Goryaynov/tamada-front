@@ -1,87 +1,63 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {EventEmitter, Injectable, Output} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {Observable} from 'rxjs';
 import {RegistrationCredentials} from '../Models/registrationCredentials';
 import {RegistrationCode} from '../Models/registrationCode';
 import {TokensModel} from '../Models/tokensModel';
 import {UserInfo} from '../Models/userInfo';
-import {adminPhone, apiUrl} from '../../environments/environment';
-import {Role} from '../Enums/role';
-import {RegistrationResponse} from '../Models/registrationResponse';
-import {LoginModel} from '../Models/LoginModel';
-import {tap} from 'rxjs/operators';
-import jwt_decode from 'jwt-decode';
+import {AppComponent} from '../app.component';
+import {adminPhone} from '../../environments/environment';
+import {UserModel} from '../DataStorage/DataModels/UserModel';
+import {NavbarRole} from '../navbar/NavbarRole';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private tokenApiUrl = `${apiUrl}auth/v1/tokens`;
-  private registerApiUrl = `${apiUrl}auth/v1/register`;
-  private checkCodeApiUrl = `${apiUrl}auth/v1/check-code`;
-  static currentToken: string = '';
-  static currentRole: Role;
-  static currentPhoneVerification: RegistrationResponse;
+  @Output() loggedInNameEventEmitter: EventEmitter<string> = new EventEmitter();
+  @Output() loggedInRoleEventEmitter: EventEmitter<NavbarRole> = new EventEmitter();
+  static currentUser: string = '';
 
-  constructor(
-    private http: HttpClient,
-    private cookieService: CookieService
-  ) {
+  constructor(private http: HttpClient,
+              private cookieService: CookieService) {
+    // TODO
   }
 
-  login(login: string, password: string): Observable<TokensModel> {
-    let body = new LoginModel();
-    body.login = login;
-    body.password = password;
-    if (login.localeCompare(adminPhone) === 0) {
-      body.role = Role.ADMIN;
-    } else {
-      body.role = Role.CUSTOMER;
+  login(login: string, password: string): void {
+    let user = AppComponent.database.getUser(login);
+    if (user === undefined || user.password.localeCompare(password) !== 0) {
+      throw 'Неверные данные';
     }
-    return this.http
-      .post<TokensModel>(this.tokenApiUrl, body)
-      .pipe(
-        tap(
-          (result) => {
-            if (result) {
-              console.log(result);
-              this.cookieService.set('accessToken', result.access);
-              this.cookieService.set('refreshToken', result.refresh);
-              let parsedJwt: any = this.parseJwt(result.access);
-              this.cookieService.set('userPhone', parsedJwt.sub);
-              this.cookieService.set('role', parsedJwt.role);
-            }
-          }
-        )
-      );
-  }
+    UserService.currentUser = login;
+    if (login.localeCompare(adminPhone) === 0) {
+      this.loggedInRoleEventEmitter.emit(NavbarRole.ADMIN);
+      this.loggedInNameEventEmitter.emit('Администратор');
+    } else {
+      this.loggedInRoleEventEmitter.emit(NavbarRole.CUSTOMER);
+      this.loggedInNameEventEmitter.emit(user.name);
+    }
 
-  parseJwt (token) {
-    console.log(token);
-    let base64Url = token.split('.')[1];
-    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
-  };
+  }
 
   logout(): void {
-    this.cookieService.delete('accessToken');
-    this.cookieService.delete('refreshToken');
+    UserService.currentUser = '';
+    this.loggedInRoleEventEmitter.emit(NavbarRole.UNAUTHORIZED);
+    this.loggedInNameEventEmitter.emit('');
   }
 
-  register(creds: RegistrationCredentials): Observable<RegistrationResponse> {
-    return this.http
-      .post<RegistrationResponse>(this.registerApiUrl, creds)
-      .pipe(tap(result => {
-        if (result) {
-          this.cookieService.set('currentPhone', result.phone);
-          this.cookieService.set('currentCodeId', result.codeId.toString());
-        }
-      }));
+  register(creds: RegistrationCredentials): void {
+    let newUser = new UserInfo();
+    newUser.name = creds.name;
+    newUser.password = creds.password;
+    newUser.phone = creds.phone;
+    newUser.orders = [];
+    try {
+      AppComponent.database.createUser(newUser);
+    } catch (e) {
+      throw e;
+    }
   }
 
   verifyPhone(code: RegistrationCode): Observable<TokensModel> {
@@ -89,20 +65,32 @@ export class UserService {
     return new Observable<TokensModel>();
   }
 
-  update(creds: RegistrationCredentials): Observable<UserInfo> {
-    // todo
-    return new Observable<UserInfo>();
+  update(newUser: UserInfo): void {
+    AppComponent.database.updateUser(newUser);
   }
 
-  /*getUserInfo(): UserInfo {
+  getUserInfo(): UserInfo {
     let userViewModel = new UserInfo();
     let user = AppComponent.database.getUser(UserService.currentUser);
     userViewModel.name = user.name;
     userViewModel.phone = user.phone;
+    userViewModel.password = user.password;
     return userViewModel;
-  }*/
+  }
+
+  getUsersList(): UserModel[] {
+    return AppComponent.database.getAllUsers();
+  }
 
   isAdmin(): boolean {
-    return (UserService.currentRole == Role.ADMIN);
+    return (UserService.currentUser.localeCompare(adminPhone) === 0);
+  }
+
+  deleteUser(phone: string): void {
+    AppComponent.database.deleteUser(phone);
+  }
+
+  private displayError(): void {
+    // todo
   }
 }
