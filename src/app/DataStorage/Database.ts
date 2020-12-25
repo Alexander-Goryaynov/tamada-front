@@ -3,7 +3,6 @@ import {OrderModel} from './DataModels/OrderModel';
 import {UserModel} from './DataModels/UserModel';
 import {UserInfo} from '../Models/userInfo';
 import {NewOrder} from '../Models/newOrder';
-import {EventType} from './Enums/EventType';
 import {OrderStatus} from './Enums/OrderStatus';
 import {AnimatorMocks} from './animatorMocks';
 import {UserMocks} from './userMocks';
