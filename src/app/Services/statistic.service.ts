@@ -47,7 +47,6 @@ export class StatisticService {
         result.push(new ChartData(categories[ix], [[i, 100 - i]]));
       }
     );
-    console.log(result);
     return result;
   }
 }

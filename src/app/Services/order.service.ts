@@ -57,7 +57,6 @@ export class OrderService {
   createOrder(newOrder: NewOrder): void {
     let userPhone = UserService.currentUser;
     AppComponent.database.createOrder(newOrder, userPhone);
-    console.log(AppComponent.database.getAllOrders());
   }
 
   cancelOrder(orderId: number): void {

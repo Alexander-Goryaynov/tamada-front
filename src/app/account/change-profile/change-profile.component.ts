@@ -32,7 +32,6 @@ export class ChangeProfileComponent implements OnInit {
 
   ngOnInit(): void {
     let user = this.userService.getUserInfo();
-    console.log(user);
     this.newUser.phone = user.phone;
     this.newUser.name = user.name;
     this.isAdmin = this.userService.isAdmin();
@@ -111,7 +110,6 @@ export class ChangeProfileComponent implements OnInit {
   }
 
   checkRepeatedPassword(): void {
-    console.log(this.repeatedPassword + this.newUser.password);
     this.unmatchPasswordsHidden = (this.repeatedPassword.localeCompare(this.newUser.password) === 0);
     if (this.repeatedPassword === '' && this.newUser.password === '') {
       this.unmatchPasswordsHidden = true;

@@ -66,11 +66,9 @@ export class BookComponent implements OnInit {
   private refreshAnimators(): void {
     let animators = this.animatorService.getAnimatorsWithSchedules();
     this.schedule = animators;
-    console.log(this.schedule);
   }
 
   private refreshPrice(): void {
-    console.log(this.order.animatorId);
     this.price = this.animatorService
       .getAnimatorById(this.order.animatorId).price.toString() + ' руб.';
   }
