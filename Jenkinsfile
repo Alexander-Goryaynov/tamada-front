@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/Alexander-Goryaynov/tamada-front/localStorage'
+        git 'https://github.com/Alexander-Goryaynov/tamada-front'
       }
     }
     stage('Build application') {
