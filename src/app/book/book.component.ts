@@ -61,6 +61,13 @@ export class BookComponent implements OnInit {
     ) {
       throw 'Заполните все поля';
     }
+    // cannot contain english letters
+    if (this.order.address.match(/[A-Za-z]/)) {
+      throw 'Адрес не должен содержать латинских символов';
+    }
+    if (this.order.address.length > 200) {
+      throw 'Адрес не должен быть длиннее 200 символов';
+    }
   }
 
   private refreshAnimators(): void {
