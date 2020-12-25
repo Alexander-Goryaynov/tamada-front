@@ -5,6 +5,7 @@ import {Animator} from '../Models/animator';
 import {AnimatorsSchedule} from '../Models/animatorsSchedule';
 import {AnimatorModel} from '../DataStorage/DataModels/AnimatorModel';
 import {AppComponent} from '../app.component';
+import {OrderStatus} from '../DataStorage/Enums/OrderStatus';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,10 @@ export class AnimatorService {
       let dates = [];
       for (let j = 0; j < ordersList.length; j++) {
         let order = ordersList[j];
-        if (order.animatorId === animator.id) {
+        if (
+          order.animatorId === animator.id &&
+          order.status === OrderStatus.PROCESSING
+        ) {
           dates.push(new Date(order.date).toLocaleDateString());
         }
       }
