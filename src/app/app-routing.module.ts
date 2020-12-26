@@ -13,18 +13,21 @@ import {CreateUpdateAnimatorComponent} from './account/animators-view/create-upd
 import {AnimatorsViewComponent} from './account/animators-view/animators-view.component';
 import {EventsComponent} from './events/events.component';
 import {VerifyPhoneComponent} from './verify-phone/verify-phone.component';
+import {IsAuthorized} from './Guards/isAuthorized';
+import {IsAdmin} from './Guards/isAdmin';
 
 const routes: Routes = [
   {path: 'main', component: MainComponent, data: {animation: 'Main'}},
   {path: 'login', component: LoginComponent, data: {animation: 'Login'}},
   {path: 'about', component: AboutComponent, data: {animation: 'About'}},
-  {path: 'book', component: BookComponent, data: {animation: 'Book'}},
+  {path: 'book', component: BookComponent, data: {animation: 'Book'}, canActivate: [IsAuthorized]},
   {path: 'register', component: RegisterComponent, data: {animation: 'Register'}},
-  {path: 'accounts-view', component: AccountsViewComponent, data: {animation: 'AccountsView'}},
-  {path: 'change-profile', component: ChangeProfileComponent, data: {animation: 'ChangeProfile'}},
-  {path: 'orders-view', component: OrdersViewComponent, data: {animation: 'OrdersView'}},
-  {path: 'create-update-animator/:id', component: CreateUpdateAnimatorComponent, data: {animation: 'CreateUpdateAnimator'}},
-  {path: 'animators-view', component: AnimatorsViewComponent, data: {animation: 'AnimatorsView'}},
+  {path: 'accounts-view', component: AccountsViewComponent, data: {animation: 'AccountsView'}, canActivate: [IsAdmin]},
+  {path: 'change-profile', component: ChangeProfileComponent, data: {animation: 'ChangeProfile'}, canActivate: [IsAuthorized]},
+  {path: 'orders-view', component: OrdersViewComponent, data: {animation: 'OrdersView'}, canActivate: [IsAuthorized]},
+  {path: 'create-update-animator/:id', component: CreateUpdateAnimatorComponent, data: {animation: 'CreateUpdateAnimator'},
+    canActivate: [IsAdmin]},
+  {path: 'animators-view', component: AnimatorsViewComponent, data: {animation: 'AnimatorsView'}, canActivate: [IsAdmin]},
   {path: 'events', component: EventsComponent, data: {animation: 'Events'}},
   {path: 'verify-phone', component: VerifyPhoneComponent, data: {animation: 'VerifyPhone'}},
   {path: '', redirectTo: '/main', pathMatch: 'full'},

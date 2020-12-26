@@ -21,6 +21,8 @@ import {EventsComponent} from './events/events.component';
 import {VerifyPhoneComponent} from './verify-phone/verify-phone.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CommonModule} from '@angular/common';
+import {IsAdmin} from './Guards/isAdmin';
+import {IsAuthorized} from './Guards/isAuthorized';
 
 
 @NgModule({
@@ -50,7 +52,7 @@ import {CommonModule} from '@angular/common';
     BrowserAnimationsModule,
     CommonModule
   ],
-  providers: [],
+  providers: [IsAdmin, IsAuthorized],
   bootstrap: [AppComponent]
 })
 export class AppModule {
