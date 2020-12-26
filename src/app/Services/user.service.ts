@@ -67,6 +67,7 @@ export class UserService {
 
   update(newUser: UserInfo): void {
     AppComponent.database.updateUser(newUser);
+    this.loggedInNameEventEmitter.emit(newUser.name);
   }
 
   getUserInfo(): UserInfo {
