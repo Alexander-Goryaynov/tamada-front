@@ -12,15 +12,15 @@
             <li class="active"><a routerLink="/">Домой</a></li>
             <li><a routerLink="/about">О нас</a></li>
             <li><a routerLink="/events">Наши мероприятия</a></li>
-            <li *ngIf="role === 1"><a routerLink="/book">Заказать</a></li>
-            <li *ngIf="role === 0"><a routerLink="/login">Войти</a></li>
-            <li *ngIf="role !== 0" class="dropdown">
+            <li *ngIf="role === 'customer'"><a routerLink="/book">Заказать</a></li>
+            <li *ngIf="role === 'unauthorized'"><a routerLink="/login">Войти</a></li>
+            <li *ngIf="role !== 'unauthorized'" class="dropdown">
                 <button class="dropbtn">{{userName}}</button>
                 <div class="dropdown-content">
-                    <a routerLink="/orders-view" *ngIf="role === 2">Заказы</a>
-                    <a routerLink="/orders-view" *ngIf="role === 1">Мои заказы</a>
-                    <a routerLink="/accounts-view" *ngIf="role === 2">Аккаунты</a>
-                    <a routerLink="/animators-view" *ngIf="role === 2">Аниматоры</a>
+                    <a routerLink="/orders-view" *ngIf="role === 'admin'">Заказы</a>
+                    <a routerLink="/orders-view" *ngIf="role === 'customer'">Мои заказы</a>
+                    <a routerLink="/accounts-view" *ngIf="role === 'admin'">Аккаунты</a>
+                    <a routerLink="/animators-view" *ngIf="role === 'admin'">Аниматоры</a>
                     <a routerLink="/change-profile">Изменить профиль</a>
                     <a (click)="logout()">Выйти</a>
                 </div>

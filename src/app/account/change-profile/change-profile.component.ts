@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {RegistrationCredentials} from '../../Models/registrationCredentials';
-import {UserModel} from '../../DataStorage/DataModels/UserModel';
 import {UserService} from '../../Services/user.service';
 import {Router} from '@angular/router';
 import {UserInfo} from '../../Models/userInfo';

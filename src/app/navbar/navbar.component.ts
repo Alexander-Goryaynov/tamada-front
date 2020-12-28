@@ -38,8 +38,7 @@ export class NavbarComponent implements OnInit {
       this.userName = fio;
     } else if (this.role === NavbarRole.CUSTOMER) {
       // Михаил К.
-      this.userName = fio.split(' ')[1] +
-        ' ' + fio.split(' ')[0][0] + '.';
+      this.userName = fio;
     }
   }
 

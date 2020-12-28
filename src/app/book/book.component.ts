@@ -4,7 +4,7 @@ import {AnimatorService} from '../Services/animator.service';
 import {OrderService} from '../Services/order.service';
 import {NewOrder} from '../Models/newOrder';
 import {AnimatorsSchedule} from '../Models/animatorsSchedule';
-import {EventType} from '../DataStorage/Enums/EventType';
+import {EventType} from '../Enums/eventType';
 import swal from 'sweetalert2';
 import {Router} from '@angular/router';
 

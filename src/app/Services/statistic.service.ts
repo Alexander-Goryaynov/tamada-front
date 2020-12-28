@@ -4,7 +4,7 @@ import {apiUrl} from '../../environments/environment';
 import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AppComponent} from '../app.component';
-import {EventType} from '../DataStorage/Enums/EventType';
+import {EventsStatistic} from '../Models/eventsStatictic';
 
 @Injectable({
   providedIn: 'root'
@@ -19,34 +19,18 @@ export class StatisticService {
 
   getEventsStats(): ChartData[] {
     let result: ChartData[] = [];
-    let absoluteCounts: number[] = [];
-    let categories: string[] = [];
-
-    for (let i = 0; i < Object.keys(EventType).length; i++) {
-      absoluteCounts.push(0);
-      categories.push(Object.values(EventType)[i]);
-    }
-    let orders = AppComponent.database.getAllOrders();
-
-    // получаем кол-во заказов по типам мероприятий
-    let j = 0;
-    categories.forEach((type, j, categories) => {
-      orders.forEach((order, i, orders) =>
-        {
-          if (order.eventType.toString() === type) {
-            absoluteCounts[j] += 1;
+    this.http
+      .get<EventsStatistic>(this.statisticsApiUrl)
+      .subscribe(
+        stat => {
+          for (let i = 0; i < stat.statistics.length; i++) {
+            let circle = stat.statistics[i];
+            let filledPercent = circle.count / stat.total * 100;
+            let emptyPercent = 100 - filledPercent;
+            result.push(new ChartData(circle.event, [[filledPercent, emptyPercent]]));
           }
         }
       );
-      j++;
-    });
-    let totalCount = absoluteCounts.reduce((x:number, y:number) => x + y);
-    // находим процентные соотношения и записываем в результат
-    absoluteCounts.forEach((i, ix, absoluteCounts) => {
-        i = i / totalCount * 100;
-        result.push(new ChartData(categories[ix], [[i, 100 - i]]));
-      }
-    );
     return result;
   }
 }

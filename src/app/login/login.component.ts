@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../Services/user.service';
 import {Router} from '@angular/router';
-import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
@@ -11,8 +10,8 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  login: string;
-  password: string;
+  login: string = '';
+  password: string = '';
   swalMessage: string = '';
   swalVisibility: boolean = false;
 
@@ -35,14 +34,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    try {
-      this.userService.login(this.login, this.password);
-      setTimeout(() => {
-        this.router.navigateByUrl('/orders-view');
-      }, 1000);
-    } catch (e) {
-      this.displayError(e);
-    }
+    this.userService
+      .login(this.login, this.password).subscribe(
+      result => {
+        setTimeout(() => {
+          this.router.navigateByUrl('/orders-view');
+        }, 2000);
+      },
+      (error: HttpErrorResponse) => {
+        this.displayError(`${error.message} ${error.status} ${error.error}`);
+      }
+    );
   }
 
   displayError(message: string): void {

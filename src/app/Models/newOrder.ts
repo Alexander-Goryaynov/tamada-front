@@ -1,4 +1,4 @@
-import {EventType} from '../DataStorage/Enums/EventType';
+import {EventType} from '../Enums/eventType';
 
 export class NewOrder {
   date: number;

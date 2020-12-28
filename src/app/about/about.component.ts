@@ -4,7 +4,8 @@ import {Color, Label, MultiDataSet} from 'ng2-charts';
 import {ChartData} from '../Models/chartData';
 import {StatisticService} from '../Services/statistic.service';
 import {AnimatorService} from '../Services/animator.service';
-import {AnimatorModel} from '../DataStorage/DataModels/AnimatorModel';
+import {Animator} from '../Models/animator';
+import {AnimatorsView} from '../Models/animatorsView';
 
 @Component({
   selector: 'app-about',
@@ -32,7 +33,7 @@ export class AboutComponent implements OnInit {
   ];
   chartDataset: ChartData[];
   private columns = 4;
-  animators: AnimatorModel[];
+  animators: Animator[];
 
   constructor(
     private statisticService: StatisticService,
@@ -42,6 +43,16 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
     this.chartDataset = this.statisticService.getEventsStats();
-    this.animators = this.animatorService.getAnimatorsWithPhotos();
+    this.animators = [];
+    this.animatorService
+      .getAnimatorsWithPhotos()
+      .subscribe(
+        (result: AnimatorsView) => {
+          console.log(result);
+          for (let i = 0; i < result.animators.length; i++) {
+            this.animators.push(result.animators[i]);
+          }
+        }
+    );
   }
 }

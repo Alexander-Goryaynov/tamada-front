@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import {RegistrationCredentials} from '../Models/registrationCredentials';
 import {Router} from '@angular/router';
 import {UserService} from '../Services/user.service';
@@ -25,19 +24,23 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.credentials = new RegistrationCredentials();
+    this.credentials = new RegistrationCredentials('', '', '');
   }
 
   submit(): void {
     if (!this.verifyCredentials()) {
       return;
     }
-    try {
-      this.userService.register(this.credentials);
-      this.displayAlert('Регистрация прошла успешно', 'success', true);
-    } catch (e) {
-      this.displayAlert(e, 'error', false);
-    }
+    this.userService
+      .register(this.credentials)
+      .subscribe(
+        result => {
+          this.displayAlert('Регистрация прошла успешно', 'success', true);
+        },
+        error => {
+          this.displayAlert(`${error.message} ${error.status} ${error.error}`, 'error', false);
+        }
+      );
   }
 
   togglePasswordHide(): void {

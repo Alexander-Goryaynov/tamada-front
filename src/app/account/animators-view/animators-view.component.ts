@@ -3,7 +3,6 @@ import {UserService} from '../../Services/user.service';
 import {AnimatorService} from '../../Services/animator.service';
 import {Animator} from '../../Models/animator';
 import {Role} from '../../Enums/role';
-import {AnimatorModel} from '../../DataStorage/DataModels/AnimatorModel';
 import {Router} from '@angular/router';
 import swal from 'sweetalert2';
 
@@ -14,7 +13,7 @@ import swal from 'sweetalert2';
 })
 export class AnimatorsViewComponent implements OnInit {
 
-  animators: AnimatorModel[];
+  animators: Animator[];
   animatorNameToDelete: string;
   private role: Role;
   private fio: string;
@@ -30,7 +29,17 @@ export class AnimatorsViewComponent implements OnInit {
   }
 
   loadAnimators(): void {
-    this.animators =  this.animatorService.getAnimatorsWithPhotos();
+    this.animators = [];
+    this
+      .animatorService
+      .getAnimatorsWithPhotos()
+      .subscribe(
+        result => {
+          for (let i = 0; i < result.animators.length; i++) {
+            this.animators.push(result.animators[i]);
+          }
+        }
+      );
   }
 
   editAnimator(id: number): void {

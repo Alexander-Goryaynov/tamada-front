@@ -1,5 +1,5 @@
 export enum NavbarRole {
-  UNAUTHORIZED,
-  CUSTOMER,
-  ADMIN
+  UNAUTHORIZED = 'unauthorized',
+  CUSTOMER = 'customer',
+  ADMIN = 'admin'
 }
