@@ -16,7 +16,7 @@ import {Router} from '@angular/router';
 export class BookComponent implements OnInit {
 
   order: NewOrder = new NewOrder();
-  schedule: AnimatorsSchedule;
+  schedule: AnimatorsSchedule = new AnimatorsSchedule();
   eventsList: string[] = [];
   pickedDate: string = '';
   price: string = '';
@@ -41,15 +41,23 @@ export class BookComponent implements OnInit {
   onSubmit(): void {
     try {
       this.validateInfo();
-      this.orderService.createOrder(this.order);
-      this.displayAlert(
-        'Заказ принят. Мы свяжемся с Вами в ближайшее время!',
-        'success',
-        true
-      );
     } catch (e) {
       this.displayAlert(e, 'error', false);
+      return;
     }
+    this.validateInfo();
+    this.orderService.createOrder(this.order).subscribe(
+      response => {
+        this.displayAlert(
+          'Заказ принят. Мы свяжемся с Вами в ближайшее время!',
+          'success',
+          true
+        );
+      },
+      error => {
+        this.displayAlert(error, 'error', false);
+      }
+    );
   }
 
   private validateInfo(): void {
@@ -71,12 +79,16 @@ export class BookComponent implements OnInit {
   }
 
   private refreshAnimators(): void {
-    let animators = this.animatorService.getAnimatorsWithSchedules();
-    this.schedule = animators;
+    this.animatorService
+      .getAnimatorsWithSchedules()
+      .subscribe(animators => {
+        console.log(animators);
+        this.schedule = animators;
+      });
   }
 
   private refreshPrice(): void {
-    this.price = this.animatorService
+    this.animatorService
       .getAnimatorById(this.order.animatorId).price.toString() + ' руб.';
   }
 

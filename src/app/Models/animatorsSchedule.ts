@@ -1,3 +1,3 @@
 export class AnimatorsSchedule {
-  animators: { id: number, name: string, dates: string[] }[];
+  animators: { dates: string[], id: number, name: string  }[];
 }

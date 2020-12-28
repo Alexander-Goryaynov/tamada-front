@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {Observable} from 'rxjs';
 import {RegistrationCredentials} from '../Models/registrationCredentials';
@@ -13,6 +13,7 @@ import {Role} from '../Enums/role';
 import {RegistrationResponse} from '../Models/registrationResponse';
 import {tap} from 'rxjs/operators';
 import {LoginModel} from '../Models/LoginModel';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +24,7 @@ export class UserService {
   private tokenApiUrl = `${apiUrl}/auth/v1/tokens`;
   private registerApiUrl = `${apiUrl}/auth/v1/register`;
   private checkCodeApiUrl = `${apiUrl}/auth/v1/check-code`;
+  private userInfoUrl = `${apiUrl}/users/v1/info`;
 
   constructor(private http: HttpClient,
               private cookieService: CookieService) {
@@ -55,7 +57,12 @@ export class UserService {
                 this.loggedInNameEventEmitter.emit('Администратор');
               } else {
                 this.loggedInRoleEventEmitter.emit(NavbarRole.CUSTOMER);
-                this.loggedInNameEventEmitter.emit(decodedJwt.sub);
+                this.getUserInfo()
+                  .subscribe(
+                    result => {
+                      this.loggedInNameEventEmitter.emit(result.name);
+                    }
+                  );
               }
             }
           }
@@ -106,14 +113,11 @@ export class UserService {
     this.loggedInNameEventEmitter.emit(newUser.name);
   }
 
-  getUserInfo(): UserInfo {
-    // let userViewModel = new UserInfo();
-    // let user = AppComponent.database.getUser(UserService.currentUser);
-    // userViewModel.name = user.name;
-    // userViewModel.phone = user.phone;
-    // userViewModel.password = user.password;
-    // return userViewModel;
-    return null;
+  getUserInfo(): Observable<UserInfo> {
+    let token = this.cookieService.get('access');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + token);
+    return this.http.get<UserInfo>(this.userInfoUrl, {headers: headers});
   }
 
   getUsersList(): UserInfo[] {

@@ -34,6 +34,8 @@ export class OrdersViewComponent implements OnInit {
 
   private loadOrders(): void {
     this.orders = this.orderService.getOrdersList();
+    console.log('ORDERS-VIEW')
+    console.log(this.orders);
     // сортировка сначала по убыванию статуса, потом по убыванию даты
     this.orders.sort(
       (x, y) => {
@@ -63,9 +65,14 @@ export class OrdersViewComponent implements OnInit {
   }
 
   private loadFioLabel(): void {
-    let currentUser = this.userService.getUserInfo();
-    this.phone = currentUser.phone;
-    this.fio = currentUser.name;
+    this.userService
+      .getUserInfo()
+      .subscribe(
+      result => {
+        this.phone = result.phone;
+        this.fio = result.name;
+      }
+    );
   }
 
   cancelOrder(id: number): void {

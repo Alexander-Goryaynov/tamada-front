@@ -1,8 +1,12 @@
 export class OrderInfo {
-  date: number;
+  address: string;
   animator: {
     id: number;
     name: string;
   }
+  createdAt: string;
+  date: string;
   event: string;
+  id: number;
+  status: string;
 }

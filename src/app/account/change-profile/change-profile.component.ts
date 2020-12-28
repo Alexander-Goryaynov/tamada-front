@@ -29,9 +29,12 @@ export class ChangeProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let user = this.userService.getUserInfo();
-    this.newUser.phone = user.phone;
-    this.newUser.name = user.name;
+    this.userService.getUserInfo().subscribe(
+      user => {
+        this.newUser.phone = user.phone;
+        this.newUser.name = user.name;
+      }
+    );
     this.isAdmin = this.userService.isAdmin();
   }
 
@@ -48,7 +51,8 @@ export class ChangeProfileComponent implements OnInit {
   }
 
   verifyOldPassword(password: string): boolean {
-    let oldPassword = this.userService.getUserInfo().password;
+    let oldPassword = '';
+    this.userService.getUserInfo().subscribe(info => oldPassword = info.password);
     return oldPassword.localeCompare(password) === 0;
   }
 

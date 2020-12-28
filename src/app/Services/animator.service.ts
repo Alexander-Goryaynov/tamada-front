@@ -20,7 +20,7 @@ export class AnimatorService {
   }
 
   getAnimatorsWithPhotos(): Observable<AnimatorsView> {
-    let token = this.cookieService.get('accessToken');
+    let token = this.cookieService.get('access');
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', 'Bearer ' + token);
     return this.http
@@ -28,15 +28,26 @@ export class AnimatorService {
   }
 
   getAnimatorById(id: number): Animator {
-    let animator = null;
-    if (animator === undefined) {
-      throw 'Аниматор не найден';
-    }
-    return animator;
+    let result = new Animator();
+    this.getAnimatorsWithPhotos()
+      .subscribe(
+        (animators: AnimatorsView) => {
+        for (let i = 0; i < animators.animators.length; i++) {
+          if (animators.animators[i].id === id) {
+            result = animators.animators[i];
+            break;
+          }
+        }
+      }
+    );
+    return result;
   }
 
-  getAnimatorsWithSchedules(): AnimatorsSchedule {
-    return null;
+  getAnimatorsWithSchedules(): Observable<AnimatorsSchedule> {
+    let token = this.cookieService.get('access');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + token);
+    return this.http.get<AnimatorsSchedule>(this.schedulesApiUrl, {headers:headers});
   }
 
   updateAnimator(animator: Animator): void {
