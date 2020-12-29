@@ -47,13 +47,6 @@
           <td>{{acc.phone}}</td>
           <td>{{acc.name}}</td>
           <td>{{acc.ordersCount}}</td>
-          <td>
-            <button type="button" class="btn btn-danger"
-                    (click)="this.accountToDelete = acc.phone; deleteSwal.fire()"
-                    style="background-color: #d9534f !important;">
-              Удалить
-            </button>
-          </td>
         </tr>
         </tbody>
       </table>

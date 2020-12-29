@@ -39,15 +39,26 @@ export class AnimatorService {
     return this.http.get<AnimatorsSchedule>(this.schedulesApiUrl, {headers:headers});
   }
 
-  updateAnimator(animator: Animator): void {
-    return;
+  updateAnimator(animator: Animator): Observable<any> {
+    animator.image = animator.image.split(',')[1];
+    let token = this.cookieService.get('access');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + token);
+    return this.http.put(`${apiUrl}/animators/v1/${animator.id}`, animator, {headers: headers});
   }
 
-  createAnimator(animator: Animator): void {
-    return;
+  createAnimator(animator: Animator): Observable<any> {
+    animator.image = animator.image.split(',')[1];
+    let token = this.cookieService.get('access');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + token);
+    return this.http.post(`${apiUrl}/animators/v1`, animator, {headers: headers});
   }
 
-  deleteAnimator(id: number): void {
-    return;
+  deleteAnimator(id: number): Observable<any> {
+    let token = this.cookieService.get('access');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + token);
+    return this.http.delete(`${apiUrl}/animators/v1/${id}`, {headers: headers});
   }
 }

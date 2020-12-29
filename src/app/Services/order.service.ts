@@ -8,6 +8,9 @@ import {UserService} from './user.service';
 import {AppComponent} from '../app.component';
 import {CookieService} from 'ngx-cookie-service';
 import {AllOrdersModel} from '../Models/allOrdersModel';
+import {AnimatorService} from './animator.service';
+import {Animator} from '../Models/animator';
+import {AnimatorsView} from '../Models/animatorsView';
 
 @Injectable({
   providedIn: 'root'
@@ -19,56 +22,70 @@ export class OrderService {
   constructor(
     private http: HttpClient,
     private userService: UserService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private animatorService: AnimatorService
   ) { }
 
   getOrdersList(): OrderListInfo[] {
     let result: OrderListInfo[] = [];
-    if (this.userService.isAdmin()) {
-      let token = this.cookieService.get('access');
-      let headers = new HttpHeaders();
-      headers = headers.set('Authorization', 'Bearer ' + token);
-      this.http
-        .get<AllOrdersModel>(`${apiUrl}/orders/v1`, {headers: headers})
-        .subscribe(
-          item => {
-            console.log(item);
-            for (let i = 0; i < item.orders.length; i++) {
-              let orderView = new OrderListInfo();
-              let order = item.orders[i];
-              orderView.id = order.id;
-              orderView.event = order.event;
-              orderView.date = order.date;
-              orderView.user = order.user.name;
-              orderView.address = order.address;
-              orderView.animatorName = order.animator.name;
-              orderView.status = order.status;
-              orderView.price = 'ОТСУТСТВУЕТ В МОДЕЛИ!';
-              orderView.creationDate = order.date;
-              result.push(orderView);
-            }
-          }
-        );
-    } else {
-      this.userService.getUserInfo().subscribe(
-        info => {
-          for (let i = 0; i < info.orders.length; i++) {
-            let orderView = new OrderListInfo();
-            let order = info.orders[i];
-            orderView.id = order.id;
-            orderView.creationDate = order.createdAt;
-            orderView.date = order.date;
-            orderView.status = order.status;
-            orderView.animatorName = order.animator.name;
-            orderView.price = 'ОТСУТСТВУЕТ В МОДЕЛИ!';
-            orderView.address = order.address;
-            orderView.event = order.event;
-            orderView.user = info.name;
-            result.push(orderView);
+    let animators: AnimatorsView;
+    this.animatorService.getAnimatorsWithPhotos()
+      .subscribe(
+        anim => {
+          animators = anim;
+          if (this.userService.isAdmin()) {
+            let token = this.cookieService.get('access');
+            let headers = new HttpHeaders();
+            headers = headers.set('Authorization', 'Bearer ' + token);
+            this.http
+              .get<AllOrdersModel>(`${apiUrl}/orders/v1`, {headers: headers})
+              .subscribe(
+                item => {
+                  console.log(item);
+                  for (let i = 0; i < item.orders.length; i++) {
+                    let orderView = new OrderListInfo();
+                    let order = item.orders[i];
+                    orderView.id = order.id;
+                    orderView.event = order.event;
+                    orderView.date = order.date;
+                    orderView.user = order.user.name;
+                    orderView.address = order.address;
+                    orderView.animatorName = order.animator.name;
+                    orderView.status = order.status;
+                    orderView.price = animators
+                      .animators
+                      .find(x => x.id === order.animator.id)
+                      .price.toString() + ' Руб.';
+                    orderView.creationDate = order.date;
+                    result.push(orderView);
+                  }
+                }
+              );
+          } else {
+            this.userService.getUserInfo().subscribe(
+              info => {
+                for (let i = 0; i < info.orders.length; i++) {
+                  let orderView = new OrderListInfo();
+                  let order = info.orders[i];
+                  orderView.id = order.id;
+                  orderView.creationDate = order.createdAt;
+                  orderView.date = order.date;
+                  orderView.status = order.status;
+                  orderView.animatorName = order.animator.name;
+                  orderView.price = animators
+                    .animators
+                    .find(x => x.id === order.animator.id)
+                    .price.toString() + ' Руб.';
+                  orderView.address = order.address;
+                  orderView.event = order.event;
+                  orderView.user = info.name;
+                  result.push(orderView);
+                }
+              }
+            );
           }
         }
       );
-    }
     return result;
   }
 

@@ -33,7 +33,14 @@ export class CreateUpdateAnimatorComponent implements OnInit {
   }
 
   loadData(): void {
-    Object.assign(this.animator, this.animatorService.getAnimatorById(this.animator.id));
+    this.animatorService.getAnimatorsWithPhotos()
+      .subscribe(result => {
+      for(let i = 0; i < result.animators.length; i++) {
+        if (result.animators[i].id === this.animator.id) {
+          this.animator = result.animators[i];
+        }
+      }
+    });
   }
 
   onSubmit(): void {
@@ -44,13 +51,18 @@ export class CreateUpdateAnimatorComponent implements OnInit {
       return;
     }
     if (this.animator.id === -1) {
-      this.animatorService.createAnimator(this.animator);
-      this.displayAlert('Создание аниматора прошло успешно', true);
+      this.animatorService.createAnimator(this.animator).subscribe(
+        result => {
+          this.displayAlert('Создание аниматора прошло успешно', true);
+        }
+      );
     } else {
-      this.animatorService.updateAnimator(this.animator);
-      this.displayAlert('Аниматор успешно обновлён', true);
+      this.animatorService.updateAnimator(this.animator).subscribe(
+        result => {
+          this.displayAlert('Аниматор успешно обновлён', true);
+        }
+      );
     }
-
   }
 
   private validateInput(): void {

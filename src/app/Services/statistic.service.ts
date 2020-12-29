@@ -27,7 +27,7 @@ export class StatisticService {
           console.log(stat);
           for (let i = 0; i < stat.statistics.length; i++) {
             let circle = stat.statistics[i];
-            let filledPercent = circle.count / stat.total * 100;
+            let filledPercent = circle.count / (stat.total + 1) * 100;
             let emptyPercent = 100 - filledPercent;
             result.push(new ChartData(circle.event, [[filledPercent, emptyPercent]]));
           }

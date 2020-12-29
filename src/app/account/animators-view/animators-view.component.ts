@@ -52,8 +52,11 @@ export class AnimatorsViewComponent implements OnInit {
     let id = this.animators
       .find(animator =>
         animator.name.localeCompare(name) === 0).id;
-    this.animatorService.deleteAnimator(id);
-    swal.fire(`Аниматор ${name} успешно удалён`);
-    this.loadAnimators();
+    this.animatorService.deleteAnimator(id).subscribe(
+      result => {
+        swal.fire(`Аниматор ${name} успешно удалён`);
+        this.loadAnimators();
+      }
+    );
   }
 }

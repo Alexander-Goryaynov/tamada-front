@@ -21,7 +21,7 @@
                     <a routerLink="/orders-view" *ngIf="role === 'customer'">Мои заказы</a>
                     <a routerLink="/accounts-view" *ngIf="role === 'admin'">Аккаунты</a>
                     <a routerLink="/animators-view" *ngIf="role === 'admin'">Аниматоры</a>
-                    <a routerLink="/change-profile">Изменить профиль</a>
+                    <a routerLink="/change-profile" *ngIf="role === 'customer'">Изменить профиль</a>
                     <a (click)="logout()">Выйти</a>
                 </div>
             </li>
