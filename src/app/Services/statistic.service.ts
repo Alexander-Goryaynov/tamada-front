@@ -23,6 +23,8 @@ export class StatisticService {
       .get<EventsStatistic>(this.statisticsApiUrl)
       .subscribe(
         stat => {
+          console.log('СТАТА');
+          console.log(stat);
           for (let i = 0; i < stat.statistics.length; i++) {
             let circle = stat.statistics[i];
             let filledPercent = circle.count / stat.total * 100;

@@ -36,7 +36,7 @@ export class UserService {
     let body = new LoginModel();
     body.login = login;
     body.password = password;
-    if (this.isAdmin()) {
+    if (login.localeCompare(adminPhone) === 0) {
       body.role = Role.ADMIN.toUpperCase();
     } else {
       body.role = Role.CUSTOMER.toUpperCase();

@@ -33,7 +33,20 @@
                   [colors]="colors">
           </canvas>
           <br>
-          <p><b>{{chartData.name}}</b></p>
+          <div [ngSwitch]="chartData.name">
+            <ng-template ngSwitchCase="WEDDING">
+              <p><b>Свадьба</b></p>
+            </ng-template>
+            <ng-template ngSwitchCase="JUBILEE">
+              <p><b>Юбилей</b></p>
+            </ng-template>
+            <ng-template ngSwitchCase="PROM">
+              <p><b>Выпускной</b></p>
+            </ng-template>
+            <ng-template ngSwitchCase="BIRTHDAY">
+              <p><b>День рождения</b></p>
+            </ng-template>
+          </div>
         </div>
       </div>
     </div>

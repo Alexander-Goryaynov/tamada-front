@@ -7,6 +7,7 @@ import {NewOrder} from '../Models/newOrder';
 import {UserService} from './user.service';
 import {AppComponent} from '../app.component';
 import {CookieService} from 'ngx-cookie-service';
+import {AllOrdersModel} from '../Models/allOrdersModel';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,30 @@ export class OrderService {
   getOrdersList(): OrderListInfo[] {
     let result: OrderListInfo[] = [];
     if (this.userService.isAdmin()) {
-      // todo
+      let token = this.cookieService.get('access');
+      let headers = new HttpHeaders();
+      headers = headers.set('Authorization', 'Bearer ' + token);
+      this.http
+        .get<AllOrdersModel>(`${apiUrl}/orders/v1`, {headers: headers})
+        .subscribe(
+          item => {
+            console.log(item);
+            for (let i = 0; i < item.orders.length; i++) {
+              let orderView = new OrderListInfo();
+              let order = item.orders[i];
+              orderView.id = order.id;
+              orderView.event = order.event;
+              orderView.date = order.date;
+              orderView.user = order.user.name;
+              orderView.address = order.address;
+              orderView.animatorName = order.animator.name;
+              orderView.status = order.status;
+              orderView.price = 'ОТСУТСТВУЕТ В МОДЕЛИ!';
+              orderView.creationDate = order.date;
+              result.push(orderView);
+            }
+          }
+        );
     } else {
       this.userService.getUserInfo().subscribe(
         info => {
@@ -36,7 +60,7 @@ export class OrderService {
             orderView.date = order.date;
             orderView.status = order.status;
             orderView.animatorName = order.animator.name;
-            orderView.price = '0';
+            orderView.price = 'ОТСУТСТВУЕТ В МОДЕЛИ!';
             orderView.address = order.address;
             orderView.event = order.event;
             orderView.user = info.name;
@@ -49,7 +73,7 @@ export class OrderService {
   }
 
   getUserOrdersCount(userPhone: string): number {
-    return 0;
+    return this.getOrdersList().length;
   }
 
   createOrder(newOrder: NewOrder): Observable<any> {
@@ -80,11 +104,17 @@ export class OrderService {
     return this.http.post(`${this.ordersApiUrl}/${orderId}/cancel`, {}, {headers: headers});
   }
 
-  finishOrder(orderId: number): void {
-    return;
+  finishOrder(orderId: number): Observable<any> {
+    let token = this.cookieService.get('access');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + token);
+    return this.http.post(`${this.ordersApiUrl}/${orderId}/approve`, {}, {headers: headers});
   }
 
-  deleteOrder(orderId: number): void {
-    return;
+  deleteOrder(orderId: number): Observable<any> {
+    let token = this.cookieService.get('access');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + token);
+    return this.http.delete(`${apiUrl}/orders/${orderId}/delete`, {headers: headers});
   }
 }

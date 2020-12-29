@@ -67,14 +67,18 @@ export class OrdersViewComponent implements OnInit {
   }
 
   private loadFioLabel(): void {
-    this.userService
-      .getUserInfo()
-      .subscribe(
-        result => {
-          this.phone = result.phone;
-          this.fio = result.name;
-        }
-      );
+    if (this.userService.isAdmin()) {
+      this.fio = 'Администратор';
+    } else {
+      this.userService
+        .getUserInfo()
+        .subscribe(
+          result => {
+            this.phone = result.phone;
+            this.fio = result.name;
+          }
+        );
+    }
   }
 
   cancelOrder(id: number): void {
@@ -91,9 +95,12 @@ export class OrdersViewComponent implements OnInit {
   }
 
   finishOrder(id: number): void {
-    this.orderService.finishOrder(id);
-    this.displayAlert(`Заказ №${id} успешно завершён`);
-    this.loadOrders();
+    this.orderService.finishOrder(id).subscribe(
+      result => {
+        this.displayAlert(`Заказ №${id} успешно завершён`);
+        this.loadOrders();
+      }
+    );
   }
 
   deleteOrder(id: number): void {
