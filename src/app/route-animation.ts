@@ -7,6 +7,7 @@ import {
   group
 } from '@angular/animations';
 
+
 export const slideInAnimation =
   trigger('routeAnimations', [
     transition('* <=> *', [
