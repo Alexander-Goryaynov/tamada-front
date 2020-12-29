@@ -34,13 +34,14 @@ export class OrdersViewComponent implements OnInit {
 
   private loadOrders(): void {
     this.orders = this.orderService.getOrdersList();
-    console.log('ORDERS-VIEW')
+    console.log('ORDERS-VIEW');
     console.log(this.orders);
     // сортировка сначала по убыванию статуса, потом по убыванию даты
     this.orders.sort(
       (x, y) => {
         let xStatus;
         let yStatus;
+
         function getWeight(status: string): number {
           switch (status) {
             case 'Обработка':
@@ -51,6 +52,7 @@ export class OrdersViewComponent implements OnInit {
               return 1;
           }
         }
+
         xStatus = getWeight(x.status);
         yStatus = getWeight(y.status);
         if (yStatus > xStatus) {
@@ -68,17 +70,24 @@ export class OrdersViewComponent implements OnInit {
     this.userService
       .getUserInfo()
       .subscribe(
-      result => {
-        this.phone = result.phone;
-        this.fio = result.name;
-      }
-    );
+        result => {
+          this.phone = result.phone;
+          this.fio = result.name;
+        }
+      );
   }
 
   cancelOrder(id: number): void {
-    this.orderService.cancelOrder(id);
-    this.displayAlert(`Заказ №${id} успешно отменён`);
-    this.loadOrders();
+    this.orderService.cancelOrder(id).subscribe(
+      result => {
+        this.displayAlert(`Заказ №${id} успешно отменён`);
+        this.loadOrders();
+      },
+      error => {
+        console.log(error);
+        this.displayAlert(error);
+      }
+    );
   }
 
   finishOrder(id: number): void {

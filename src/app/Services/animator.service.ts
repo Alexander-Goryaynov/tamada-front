@@ -29,18 +29,7 @@ export class AnimatorService {
 
   getAnimatorById(id: number): Animator {
     let result = new Animator();
-    this.getAnimatorsWithPhotos()
-      .subscribe(
-        (animators: AnimatorsView) => {
-        for (let i = 0; i < animators.animators.length; i++) {
-          if (animators.animators[i].id === id) {
-            result = animators.animators[i];
-            break;
-          }
-        }
-      }
-    );
-    return result;
+    return this.getAnimatorsWithPhotos()[id];
   }
 
   getAnimatorsWithSchedules(): Observable<AnimatorsSchedule> {

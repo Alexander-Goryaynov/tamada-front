@@ -73,8 +73,11 @@ export class OrderService {
     return this.http.post<NewOrder>(this.ordersApiUrl, newOrder, {headers: headers});
   }
 
-  cancelOrder(orderId: number): void {
-    return;
+  cancelOrder(orderId: number): Observable<any> {
+    let token = this.cookieService.get('access');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + token);
+    return this.http.post(`${this.ordersApiUrl}/${orderId}/cancel`, {}, {headers: headers});
   }
 
   finishOrder(orderId: number): void {

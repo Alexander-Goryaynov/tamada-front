@@ -1,9 +1,9 @@
 export class Animator {
-  id: number;
-  name: string;
   age: number;
   description: string;
-  motto: string;
-  price: number;
+  id: number;
   image: string;
+  motto: string;
+  name: string;
+  price: number;
 }

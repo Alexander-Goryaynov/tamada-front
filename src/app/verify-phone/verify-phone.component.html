@@ -7,6 +7,12 @@
 <body>
 
 <div class="main">
+  <swal
+    [title]="swalMessage"
+    [icon]="swalIcon"
+    [swalVisible]="swalVisibility"
+    showCancelButton=""
+    showConfirmButton=""></swal>
   <section class="signup">
     <div class="container">
       <div class="signup-content">
@@ -14,10 +20,10 @@
           <h2 class="form-title">Введите код подтверждения</h2>
           <div class="form-group">
             <input type="text" class="form-input" name="phone-number"
-                   placeholder="Код" style="margin-top: 30px" required>
+                   placeholder="Код" style="margin-top: 30px" [(ngModel)]="code" required>
           </div>
           <div class="form-group">
-            <button name="submit" id="submit" class="form-submit">Продолжить</button>
+            <button name="submit" id="submit" class="form-submit" (click)="onSubmit()">Продолжить</button>
           </div>
         </form>
       </div>

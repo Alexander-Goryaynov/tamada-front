@@ -58,38 +58,59 @@
           </div>
           <td>
             <div [ngSwitch]="order.status">
-              <ng-template ngSwitchCase="Обработка">
+              <ng-template ngSwitchCase="PROCESSING">
                 <span class="status text-warning">&bull;</span>
+                <span>Обработка</span>
               </ng-template>
-              <ng-template ngSwitchCase="Отменён">
-                <span class="status text-danger">&bull;</span>
-              </ng-template>
-              <ng-template ngSwitchCase="Выполнен">
+              <ng-template ngSwitchCase="APPROVED">
                 <span class="status text-success">&bull;</span>
+                <span>Подтверждён</span>
               </ng-template>
-              <span>{{order.status}}</span>
+              <ng-template ngSwitchCase="DONE">
+                <span class="status text-info">&bull;</span>
+                <span>Выполнен</span>
+              </ng-template>
+              <ng-template ngSwitchCase="CANCELED">
+                <span class="status text-danger">&bull;</span>
+                <span>Отменён</span>
+              </ng-template>
             </div>
           </td>
           <td>{{order.date}}</td>
-          <td>{{order.event}}</td>
+          <div [ngSwitch]="order.event">
+            <ng-template ngSwitchCase="WEDDING">
+              <td>Свадьба</td>
+            </ng-template>
+            <ng-template ngSwitchCase="PROM">
+              <td>Выпускной</td>
+            </ng-template>
+            <ng-template ngSwitchCase="JUBILEE">
+              <td>Юбилей</td>
+            </ng-template>
+            <ng-template ngSwitchCase="BIRTHDAY">
+              <td>День рождения</td>
+            </ng-template>
+          </div>
           <td>{{order.address}}</td>
           <td>{{order.animatorName}}</td>
           <td>{{order.price}}</td>
           <td>{{order.creationDate}}</td>
-          <td *ngIf="!isAdmin">
-            <button *ngIf="order.status.localeCompare('Обработка') === 0"
-                    (click)="cancelOrder(order.id)" type="button" class="btn btn-danger" style="background-color: #d9534f !important;">
-              Отменить
-            </button>
-          </td>
+          <button *ngIf="order.status.localeCompare('PROCESSING') === 0"
+                  (click)="cancelOrder(order.id)" type="button" class="btn btn-danger"
+                  style="background-color: #d9534f !important;">
+            Отменить
+          </button>
           <td *ngIf="isAdmin">
-            <button *ngIf="order.status.localeCompare('Обработка') === 0"
-                    (click)="finishOrder(order.id)" type="button" class="btn btn-success" style="background-color: #5cb85c !important;">
+            <button *ngIf="order.status.localeCompare('PROCESSING') === 0"
+                    (click)="finishOrder(order.id)" type="button" class="btn btn-success"
+                    style="background-color: #5cb85c !important;">
               Завершить
             </button>
           </td>
           <td *ngIf="isAdmin">
-            <button (click)="deleteOrder(order.id)" type="button" class="btn btn-danger" style="background-color: #d9534f !important;">Удалить</button>
+            <button (click)="deleteOrder(order.id)" type="button" class="btn btn-danger"
+                    style="background-color: #d9534f !important;">Удалить
+            </button>
           </td>
         </tr>
         </tbody>

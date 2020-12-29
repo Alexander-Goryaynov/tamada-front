@@ -39,21 +39,21 @@ export class ChangeProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (!this.verifyOldPassword(this.oldPassword)) {
-      this.displayAlert('Неверный пароль', 'error', false);
-      return;
-    }
     if (!this.validateInput()) {
       return;
     }
-    this.userService.update(this.newUser);
-    this.displayAlert('Обновлено успешно', 'success', true);
-  }
+    this.userService.update(this.newUser).subscribe(
+      result => {
+        console.log(result);
+        this.displayAlert('Обновлено успешно', 'success', true);
+      },
+      error => {
+        console.log('CREDS ERROR');
+        console.log(error);
+        this.displayAlert('Неверные данные', 'error', false);
+      }
+    );
 
-  verifyOldPassword(password: string): boolean {
-    let oldPassword = '';
-    this.userService.getUserInfo().subscribe(info => oldPassword = info.password);
-    return oldPassword.localeCompare(password) === 0;
   }
 
   validateInput(): boolean {

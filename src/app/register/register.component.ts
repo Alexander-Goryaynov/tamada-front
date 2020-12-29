@@ -35,7 +35,8 @@ export class RegisterComponent implements OnInit {
       .register(this.credentials)
       .subscribe(
         result => {
-          this.displayAlert('Регистрация прошла успешно', 'success', true);
+          this.displayAlert('Регистрация прошла успешно. Сейчас на Ваш телефон придёт одноразовый код!',
+            'success', true);
         },
         error => {
           this.displayAlert(`${error.message} ${error.status} ${error.error}`, 'error', false);
@@ -80,8 +81,8 @@ export class RegisterComponent implements OnInit {
     this.swalVisibility = true;
     if (doRedirect) {
       setTimeout(() => {
-        this.router.navigateByUrl('/login');
-      }, 2000);
+        this.router.navigateByUrl('/verify-phone');
+      }, 4000);
     } else {
       setTimeout(() => {
         this.swalVisibility = false;

@@ -7,6 +7,7 @@ import {AnimatorsSchedule} from '../Models/animatorsSchedule';
 import {EventType} from '../Enums/eventType';
 import swal from 'sweetalert2';
 import {Router} from '@angular/router';
+import {AnimatorsView} from '../Models/animatorsView';
 
 @Component({
   selector: 'app-book',
@@ -61,6 +62,7 @@ export class BookComponent implements OnInit {
   }
 
   private validateInfo(): void {
+    console.log(this.order);
     if (
       this.order.event === undefined ||
       this.order.address === undefined ||
@@ -89,7 +91,17 @@ export class BookComponent implements OnInit {
 
   private refreshPrice(): void {
     this.animatorService
-      .getAnimatorById(this.order.animatorId).price.toString() + ' руб.';
+      .getAnimatorsWithPhotos()
+      .subscribe(
+        (animators: AnimatorsView) => {
+          for (let i = 0; i < animators.animators.length; i++) {
+            if (animators.animators[i].id === this.order.animatorId) {
+              this.price = animators.animators[i].price.toString();
+              break;
+            }
+          }
+        }
+      );
   }
 
   private refreshEvents(): void {
@@ -122,29 +134,25 @@ export class BookComponent implements OnInit {
   }
 
   onDatePick(): void {
-    // pickedDate is in format 2020-12-25
-    let pieces = this.pickedDate.split('-');
-    pieces = pieces.reverse();
-    // standardDate will be in format 25.12.2020
-    let standardDate = pieces.join('.');
-    let unavailableDates = this.schedule.animators[this.order.animatorId].dates;
-    for (let i = 0; i < unavailableDates.length; i++) {
-      if (standardDate.localeCompare(unavailableDates[i]) === 0) {
-        this.wrongDateMessage = 'Выбранная дата уже занята';
-        return;
-      }
-    }
     // convert to unix time format
     let orderDate = new Date(this.pickedDate);
-    this.order.date = orderDate.getTime();
-    // if date equals current date or less than current unix time
-    if (standardDate.localeCompare(Date.now().toLocaleString()) === 0 ||
-      this.order.date < Date.now()
-    ) {
-      this.wrongDateMessage = 'Дата должна быть позже текущей';
-      return;
+    let availableDates = this.schedule.animators
+      .find(x => x.id === this.order.animatorId).dates;
+    let anyDate: boolean = false;
+    for (let i = 0; i < availableDates.length; i++) {
+      console.log('LEFT' + orderDate.getTime());
+      console.log('RIGHT' + (new Date(availableDates[i])).getTime());
+      if (orderDate.getTime() === (new Date(availableDates[i])).getTime()) {
+        anyDate = true;
+        this.order.date = orderDate.getTime();
+        break;
+      }
     }
-    this.wrongDateMessage = '';
+    if (!anyDate) {
+      this.wrongDateMessage = 'Выбранная дата недоступна';
+    } else {
+      this.wrongDateMessage = '';
+    }
   }
 
   displayAlert(message: string, icon: string, doRedirect: boolean): void {

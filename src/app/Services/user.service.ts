@@ -13,6 +13,7 @@ import {Role} from '../Enums/role';
 import {RegistrationResponse} from '../Models/registrationResponse';
 import {tap} from 'rxjs/operators';
 import {LoginModel} from '../Models/LoginModel';
+import {UpdateCredentials} from '../Models/updateCredentials';
 
 @Injectable({
   providedIn: 'root'
@@ -103,22 +104,67 @@ export class UserService {
       );
   }
 
-  verifyPhone(code: RegistrationCode): Observable<TokensModel> {
-    // todo
-    return new Observable<TokensModel>();
+  verifyPhone(code: string): Observable<TokensModel> {
+    let codeId: number = parseInt(this.cookieService.get('verifyCodeId'));
+    let phone: string = this.cookieService.get('verifyPhone');
+    let body: RegistrationCode = new RegistrationCode();
+    body.code = code;
+    body.codeId = codeId;
+    body.phone = phone;
+    console.log('BODY');
+    console.log(body);
+    return this.http.post<TokensModel>(`${apiUrl}/auth/v1/check-code`, body)
+      .pipe(
+        tap(
+          result => {
+            if (result) {
+              console.log(result);
+              this.cookieService.set('access', result.access);
+              this.cookieService.set('refresh', result.refresh);
+              let decodedJwt: any = this.parseJwt(result.access);
+              this.cookieService.set('userPhone', decodedJwt.sub);
+              this.cookieService.set('role', decodedJwt.role);
+              if (this.isAdmin()) {
+                this.loggedInRoleEventEmitter.emit(NavbarRole.ADMIN);
+                this.loggedInNameEventEmitter.emit('Администратор');
+              } else {
+                this.loggedInRoleEventEmitter.emit(NavbarRole.CUSTOMER);
+                this.getUserInfo()
+                  .subscribe(
+                    result => {
+                      this.loggedInNameEventEmitter.emit(result.name);
+                    }
+                  );
+              }
+            }
+          }
+        )
+      );
   }
 
-  update(newUser: UserInfo): void {
-    //AppComponent.database.updateUser(newUser);
-    this.loggedInNameEventEmitter.emit(newUser.name);
-  }
+  update(newCreds: UpdateCredentials): Observable<any> {
+    let token = this.cookieService.get('access');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + token);
+    return this.http
+      .put(`${apiUrl}/users/v1`, newCreds, {headers: headers})
+      .pipe(
+        tap(
+          result => {
+            if (result) {
+              this.loggedInNameEventEmitter.emit(newCreds.name);
+            }
+          }
+        )
+      );
+  };
 
   getUserInfo(): Observable<UserInfo> {
     let token = this.cookieService.get('access');
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', 'Bearer ' + token);
     return this.http.get<UserInfo>(this.userInfoUrl, {headers: headers});
-  }
+  };
 
   getUsersList(): UserInfo[] {
     return null;
@@ -130,9 +176,9 @@ export class UserService {
 
   deleteUser(phone: string): void {
     //AppComponent.database.deleteUser(phone);
-  }
+  };
 
   private displayError(): void {
     // todo
-  }
+  };
 }
