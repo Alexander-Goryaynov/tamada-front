@@ -14,6 +14,7 @@ import {RegistrationResponse} from '../Models/registrationResponse';
 import {tap} from 'rxjs/operators';
 import {LoginModel} from '../Models/LoginModel';
 import {UpdateCredentials} from '../Models/updateCredentials';
+import swal, {SweetAlertIcon} from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -174,11 +175,15 @@ export class UserService {
     return (this.cookieService.get('role').localeCompare(Role.ADMIN) === 0);
   }
 
-  deleteUser(phone: string): void {
-    //AppComponent.database.deleteUser(phone);
+  deleteUser(phone: string): Observable<any> {
+    let token = this.cookieService.get('access');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + token);
+    return this.http.delete<UserInfo>(this.userInfoUrl, {headers: headers});
   };
 
-  private displayError(): void {
-    // todo
-  };
+  private displayError(message: string): void {
+    let swalIcon: SweetAlertIcon = 'error';
+    swal.fire(message, '', swalIcon);
+  }
 }
