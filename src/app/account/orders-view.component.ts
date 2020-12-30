@@ -42,6 +42,7 @@ export class OrdersViewComponent implements OnInit {
   }
 
   private loadOrders(): void {
+    this.orders = [];
     let animators: AnimatorsView;
     this.animatorService.getAnimatorsWithPhotos().subscribe(
       anim => animators = anim
