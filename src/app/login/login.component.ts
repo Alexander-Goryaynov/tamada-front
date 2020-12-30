@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         }, 2000);
       },
       (error: HttpErrorResponse) => {
-        this.displayError(`${error.message} ${error.status} ${error.error}`);
+        this.displayError('Неверные данные');
       }
     );
   }

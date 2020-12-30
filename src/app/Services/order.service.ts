@@ -26,71 +26,22 @@ export class OrderService {
     private animatorService: AnimatorService
   ) { }
 
-  getOrdersList(): OrderListInfo[] {
+  getOrdersList(): Observable<AllOrdersModel> {
     let result: OrderListInfo[] = [];
     let animators: AnimatorsView;
-    this.animatorService.getAnimatorsWithPhotos()
-      .subscribe(
-        anim => {
-          animators = anim;
-          if (this.userService.isAdmin()) {
-            let token = this.cookieService.get('access');
-            let headers = new HttpHeaders();
-            headers = headers.set('Authorization', 'Bearer ' + token);
-            this.http
-              .get<AllOrdersModel>(`${apiUrl}/orders/v1`, {headers: headers})
-              .subscribe(
-                item => {
-                  console.log(item);
-                  for (let i = 0; i < item.orders.length; i++) {
-                    let orderView = new OrderListInfo();
-                    let order = item.orders[i];
-                    orderView.id = order.id;
-                    orderView.event = order.event;
-                    orderView.date = order.date;
-                    orderView.user = order.user.name;
-                    orderView.address = order.address;
-                    orderView.animatorName = order.animator.name;
-                    orderView.status = order.status;
-                    orderView.price = animators
-                      .animators
-                      .find(x => x.id === order.animator.id)
-                      .price.toString() + ' Руб.';
-                    orderView.creationDate = order.date;
-                    result.push(orderView);
-                  }
-                }
-              );
-          } else {
-            this.userService.getUserInfo().subscribe(
-              info => {
-                for (let i = 0; i < info.orders.length; i++) {
-                  let orderView = new OrderListInfo();
-                  let order = info.orders[i];
-                  orderView.id = order.id;
-                  orderView.creationDate = order.createdAt;
-                  orderView.date = order.date;
-                  orderView.status = order.status;
-                  orderView.animatorName = order.animator.name;
-                  orderView.price = animators
-                    .animators
-                    .find(x => x.id === order.animator.id)
-                    .price.toString() + ' Руб.';
-                  orderView.address = order.address;
-                  orderView.event = order.event;
-                  orderView.user = info.name;
-                  result.push(orderView);
-                }
-              }
-            );
-          }
-        }
-      );
-    return result;
+    let token = this.cookieService.get('access');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<AllOrdersModel>(`${apiUrl}/orders/v1`, {headers: headers});
   }
 
   getUserOrdersCount(userPhone: string): number {
-    return this.getOrdersList().length;
+    let length: number;
+    this.getOrdersList().subscribe(
+      orders => length = orders.orders.length
+    );
+    return length;
   }
 
   createOrder(newOrder: NewOrder): Observable<any> {

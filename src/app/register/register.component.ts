@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
             'success', true);
         },
         error => {
-          this.displayAlert(`${error.message} ${error.status} ${error.error}`, 'error', false);
+          this.displayAlert(`Данный номер телефона уже используется`, 'error', false);
         }
       );
   }
